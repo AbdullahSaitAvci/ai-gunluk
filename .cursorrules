@@ -1,0 +1,39 @@
+# AI Günlük — Cursor Kuralları
+
+## Proje Bağlamı
+Bu proje bir AI destekli mobil günlük uygulamasıdır.
+Detaylar için PRD.md dosyasına bak.
+
+## Tech Stack
+- Mobil: Flutter (Dart)
+- Backend: FastAPI (Python 3.11+)
+- Veritabanı: Supabase (PostgreSQL)
+- AI: Gemini API (vendor-agnostic yapı)
+- Deploy: Play Store
+
+## Kod Yazma Kuralları
+- Her fonksiyonun üstüne Türkçe açıklama yaz
+- Hata yönetimi için try-except kullan
+- AI çağrıları sadece ai_service.py üzerinden yapılır
+- Sabit değerler constants.py'de tutulur
+- Environment variable'lar .env'den okunur, koda yazılmaz
+
+## Klasör Yapısı
+backend/
+  main.py
+  ai_service.py
+  constants.py
+  routers/
+    auth.py
+    entries.py
+    questions.py
+    summary.py
+mobile/
+  lib/
+    screens/
+    services/
+    models/
+
+## Öncelik Sırası
+PRD.md'deki MVP kapsamına odaklan.
+Nice-to-have özellikleri sorulmadan ekleme.
