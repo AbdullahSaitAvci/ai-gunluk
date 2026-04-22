@@ -1,0 +1,77 @@
+---
+globs: mobile/**
+alwaysApply: false
+---
+# Ayna AI — Design System Rule
+
+## Genel Felsefe
+- Koyu tema öncelikli (dark-first)
+- Premium, sade, minimalist
+- Türkçe içeriğe uygun tipografi
+- Kullanıcı light/dark tema geçişi yapabilmeli
+
+## Renkler (Dark Theme — Varsayılan)
+- Background: #0A0A0A (derin siyah)
+- Surface: #1A1A1A (kart arka planı)
+- Surface Variant: #242424
+- Primary: #C8A96E (altın/amber — premium his)
+- On Primary: #000000
+- Text Primary: #F5F5F5
+- Text Secondary: #9E9E9E
+- Border: #2C2C2C
+- Error: #CF6679
+
+## Renkler (Light Theme)
+- Background: #FAFAFA
+- Surface: #FFFFFF
+- Primary: #8B6914
+- Text Primary: #1A1A1A
+- Text Secondary: #6B6B6B
+- Border: #E0E0E0
+
+## Tipografi
+- Font ailesi: Inter (başlık) + System default (gövde)
+- Başlık büyük: 28sp, weight 600
+- Başlık orta: 22sp, weight 600
+- Gövde: 16sp, weight 400
+- Küçük metin: 13sp, weight 400
+- Satır yüksekliği: 1.5
+
+## Spacing (Boşluk Sistemi)
+- xs: 4dp
+- sm: 8dp
+- md: 16dp
+- lg: 24dp
+- xl: 32dp
+- xxl: 48dp
+
+## Border Radius (Köşe Yuvarlaklığı)
+- Küçük bileşen: 8dp
+- Kart: 16dp
+- Büyük alan: 24dp
+- Tam yuvarlak: 999dp
+
+## Elevation & Shadow
+- Kart gölgesi: 0 2 8 rgba(0,0,0,0.3)
+- Modal gölgesi: 0 8 32 rgba(0,0,0,0.5)
+
+## Bileşen Kuralları
+- Her ekranda tek bir primary action butonu olsun
+- Butonlar minimum 48dp yüksekliğinde olsun
+- Input alanları 56dp yüksekliğinde olsun
+- Kartlar arası boşluk 12dp
+- Ekran kenar boşluğu 20dp
+
+## İkonlar
+- Material Icons kullan
+- İkon boyutu: 24dp (standart), 20dp (küçük)
+
+## Animasyon
+- Geçiş süresi: 200-300ms
+- Easing: easeInOut
+- Sayfa geçişi: fade + slide (aşağıdan yukarı)
+
+## Tema Geçişi
+- Kullanıcı ayarlardan dark/light seçebilir
+- Seçim Supabase'e kaydedilir
+- Sistem temasını da takip edebilir (opsiyonel)
