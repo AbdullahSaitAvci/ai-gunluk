@@ -110,3 +110,30 @@ Bu proje **YGA Future Talent Programı — Modül 301 Bootcamp** kapsamında gel
 | Supabase Kurulumu | 🔄 Devam ediyor |
 | AI Entegrasyonu | 🔄 Devam ediyor |
 | Play Store Beta | ⏳ Planlandı |
+| Frontend Ekranları | ✅ Tamamlandı - Mock data |
+
+
+## 📱 Ekran Görüntüleri
+
+### Giriş Akışı
+| Onboarding 1 | Onboarding 2 | Onboarding 3 |
+|---|---|---|
+| ![](mobile/screenshots/onboarding_0.png) | ![](mobile/screenshots/onboarding_1.png) | ![](mobile/screenshots/onboarding_2.png) |
+
+| Login | Home |
+|---|---|
+| ![](mobile/screenshots/login.png) | ![](mobile/screenshots/home.png) |
+
+### Günlük Yazım Akışı
+| Entry | Enrich | Mood |
+|---|---|---|
+| ![](mobile/screenshots/entry.png) | ![](mobile/screenshots/enrich.png) | ![](mobile/screenshots/mood.png) |
+
+| Success |
+|---|
+| ![](mobile/screenshots/success.png) |
+
+### Diğer
+| History | Settings |
+|---|---|
+| ![](mobile/screenshots/history.png) | ![](mobile/screenshots/settings.png) |
