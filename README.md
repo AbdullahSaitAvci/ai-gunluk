@@ -143,22 +143,22 @@ Bu proje **YGA Future Talent Programı — Modül 301 Bootcamp** kapsamında gel
 ### Giriş Akışı
 | Onboarding 1 | Onboarding 2 | Onboarding 3 |
 |---|---|---|
-| ![](mobile/screenshots/onboarding_0.png) | ![](mobile/screenshots/onboarding_1.png) | ![](mobile/screenshots/onboarding_2.png) |
+| ![](screenshots/onboarding_0.png) | ![](screenshots/onboarding_1.png) | ![](screenshots/onboarding_2.png) |
 
 | Login | Home |
 |---|---|
-| ![](mobile/screenshots/login.png) | ![](mobile/screenshots/home.png) |
+| ![](screenshots/login.png) | ![](screenshots/home.png) |
 
 ### Günlük Yazım Akışı
 | Entry | Enrich | Mood |
 |---|---|---|
-| ![](mobile/screenshots/entry.png) | ![](mobile/screenshots/enrich.png) | ![](mobile/screenshots/mood.png) |
+| ![](screenshots/entry.png) | ![](screenshots/enrich.png) | ![](screenshots/mood.png) |
 
 | Success |
 |---|
-| ![](mobile/screenshots/success.png) |
+| ![](screenshots/success.png) |
 
 ### Diğer
 | History | Settings |
 |---|---|
-| ![](mobile/screenshots/history.png) | ![](mobile/screenshots/settings.png) |
+| ![](screenshots/history.png) | ![](screenshots/settings.png) |
