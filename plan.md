@@ -22,8 +22,8 @@ Odak: Magic Flow, güvenli veri mimarisi, düşük gecikmeli AI deneyimi ve Play
 - [x] Backend iskeleti + /health endpoint çalışıyor
 - [x] Flutter mobile iskeleti Chrome'da çalışıyor
 - [x] progress.md ve progress-log command eklendi
-- [ ] Supabase proje kurulumu
-- [ ] .env ve gizli anahtar yönetimi
+- [x] Supabase proje kurulumu (kısmen — tablolar henüz oluşturulmadı)
+- [x] .env ve gizli anahtar yönetimi
 
 ---
 
@@ -33,8 +33,8 @@ Odak: Magic Flow, güvenli veri mimarisi, düşük gecikmeli AI deneyimi ve Play
 - [ ] Supabase Auth (Google/Apple) entegrasyonu
 - [ ] users, entries, ai_interactions tablolarını oluştur
 - [ ] RLS policy'lerini devreye al
-- [ ] Flutter: onboarding (3 ekran), auth ekranı, ana kabuk
-- [ ] Ayarlar ekranı iskeleti
+- [x] Flutter: onboarding (3 ekran), auth ekranı, ana kabuk (mock olarak tamamlandı)
+- [x] Ayarlar ekranı iskeleti
 
 **Çıktı:** Kullanıcı giriş yapar, profil oluşur, ana ekrana düşer.
 
@@ -43,11 +43,11 @@ Odak: Magic Flow, güvenli veri mimarisi, düşük gecikmeli AI deneyimi ve Play
 ## Faz 2 — Magic Flow (Uçtan Uca)
 **Süre:** W2-W4
 
-- [ ] Entry, Review, Mood ekranları
-- [ ] /daily-question endpoint
-- [ ] /process-entry endpoint (AI zenginleştirme)
-- [ ] POST /entries endpoint
-- [ ] AI prompt katmanı: soru üretimi + zenginleştirme (ton: stoic/joyful/plain)
+- [x] Entry, Review, Mood ekranları (mock olarak tamamlandı)
+- [x] /daily-question endpoint (fallback sorularla çalışıyor)
+- [x] /process-entry endpoint → /enrich endpoint olarak eklendi, Claude Haiku ile çalışıyor
+- [x] POST /entries endpoint
+- [x] AI prompt katmanı: zenginleştirme ton bazlı çalışıyor
 - [ ] Hata durumları: yükleme, retry, AI fallback
 
 **Çıktı:** Soru → Cevap → Zenginleştir → Onayla → Duygu → Kaydet akışı çalışıyor.
