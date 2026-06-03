@@ -4,7 +4,7 @@ load_dotenv()  # En üstte olmalı, import'lardan önce
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routers import entries, questions
+from routers import entries, questions, enrich
 
 app = FastAPI(
     title="Ayna AI Backend",
@@ -24,6 +24,7 @@ app.add_middleware(
 # Router'ları ana uygulamaya bağla
 app.include_router(entries.router)
 app.include_router(questions.router)
+app.include_router(enrich.router)
 
 
 @app.get("/health", tags=["Sistem"])
