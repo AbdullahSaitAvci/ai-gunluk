@@ -25,3 +25,4 @@ mobile/.packages
 
 # Logs
 *.log
+mobile/windows/runner/runner.exe.manifest
