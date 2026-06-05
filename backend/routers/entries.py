@@ -46,36 +46,41 @@ async def get_entries(authorization: str = Header(...)):
 
 
 @router.post("/", status_code=201, summary="Yeni günlük girişi kaydet")
-async def create_entry(
-    entry: EntryCreate,
-    authorization: str = Header(...)
-):
+async def create_entry(entry: EntryCreate):
     """
     Zenginleştirilmiş günlük girişini Supabase'e kaydeder.
-    Magic Flow'un son adımıdır: Soru → Cevap → Zenginleştir → Kaydet
+    Token doğrulaması yapılmaz; user_id sabit olarak 'anonymous' kullanılır.
     """
     try:
-        token = authorization.replace("Bearer ", "")
         from supabase import create_client
         supabase = create_client(SUPABASE_URL, SUPABASE_ANON_KEY)
 
-        # Kullanıcı kimliğini token'dan al
-        user = supabase.auth.get_user(token)
-        user_id = user.user.id
-
-        response = supabase.table("entries").insert({
-            "user_id": user_id,
+        payload = {
+            "user_id": "anonymous",
             "date": str(datetime.date.today()),
             "question": entry.question,
             "raw_text": entry.raw_text,
             "enriched_text": entry.enriched_text,
             "tone": entry.tone,
             "mood": entry.mood,
-        }).execute()
+        }
+
+        response = supabase.table("entries").insert(payload).execute()
 
         return {"entry": response.data[0], "message": "Giriş kaydedildi"}
     except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(
+            status_code=400,
+            detail={
+                "error": type(e).__name__,
+                "message": str(e),
+                "payload": {
+                    "question": entry.question,
+                    "tone": entry.tone,
+                    "mood": entry.mood,
+                },
+            },
+        )
 
 
 @router.get("/{entry_id}", summary="Tek giriş detayı")
