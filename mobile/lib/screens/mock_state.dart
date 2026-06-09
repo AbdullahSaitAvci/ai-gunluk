@@ -17,13 +17,8 @@ final enrichedTextProvider = FutureProvider<String>((ref) async {
   return ApiService.enrichEntry(rawText.trim(), tone);
 });
 final selectedMoodProvider = StateProvider<String>((ref) => '😊');
-final mockHistoryProvider = Provider<List<Map<String, String>>>((ref) {
-  return [
-    {'date': '06 Mayıs', 'mood': '🤩', 'title': 'Küçük ilerlemeler büyüktür'},
-    {'date': '05 Mayıs', 'mood': '😊', 'title': 'Günümü sakin kapattım'},
-    {'date': '04 Mayıs', 'mood': '😴', 'title': 'Dinlenmenin değerini gördüm'},
-    {'date': '03 Mayıs', 'mood': '😢', 'title': 'Zor bir konuşmayı atlattım'},
-  ];
+final historyProvider = FutureProvider<List<Map<String, dynamic>>>((ref) async {
+  return ApiService.getEntries();
 });
 final notificationsEnabledProvider = StateProvider<bool>((ref) => true);
 final biometricEnabledProvider = StateProvider<bool>((ref) => true);

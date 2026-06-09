@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:mobile/screens/mock_state.dart';
 import 'package:mobile/screens/success_screen.dart';
+import 'package:mobile/services/api_service.dart';
 import 'package:mobile/widgets/primary_button.dart';
 import 'package:mobile/widgets/section_card.dart';
 
@@ -15,6 +16,17 @@ class MoodScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedMood = ref.watch(selectedMoodProvider);
     const moods = ['😊', '😢', '😠', '😴', '🤩'];
+
+    void save() {
+      final question = ref.read(mockQuestionProvider).value ?? '';
+      final rawText = ref.read(entryTextProvider);
+      final enrichedText = ref.read(enrichedTextProvider).value ?? rawText;
+      final tone = ref.read(selectedToneProvider);
+      final mood = ref.read(selectedMoodProvider);
+
+      ApiService.saveEntry(question, rawText, enrichedText, tone, mood)
+          .whenComplete(() => Navigator.pushNamed(context, SuccessScreen.routeName));
+    }
 
     return Scaffold(
       appBar: AppBar(title: const Text('Duygunu Seç')),
@@ -56,9 +68,9 @@ class MoodScreen extends ConsumerWidget {
               ),
               const SizedBox(height: 16),
               PrimaryButton(
-                label: 'Kaydet (Mock)',
+                label: 'Kaydet',
                 icon: LucideIcons.save,
-                onPressed: () => Navigator.pushNamed(context, SuccessScreen.routeName),
+                onPressed: save,
               ),
             ],
           ),

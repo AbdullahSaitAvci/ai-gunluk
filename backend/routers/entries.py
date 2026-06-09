@@ -28,21 +28,21 @@ def get_supabase_client(token: str):
 
 
 @router.get("/", summary="Geçmiş günlükleri listele")
-async def get_entries(authorization: str = Header(...)):
-    """
-    Giriş yapmış kullanıcının tüm günlük girişlerini döner.
-    Authorization: Bearer <supabase_jwt_token>
-    """
+async def get_entries():
+    """Tüm günlük girişlerini döner. Token doğrulaması yapılmaz."""
     try:
-        token = authorization.replace("Bearer ", "")
-        supabase = get_supabase_client(token)
+        from supabase import create_client
+        supabase = create_client(SUPABASE_URL, SUPABASE_ANON_KEY)
         response = supabase.table("entries") \
             .select("*") \
             .order("created_at", desc=True) \
             .execute()
         return {"entries": response.data, "total": len(response.data)}
     except Exception as e:
-        raise HTTPException(status_code=401, detail=str(e))
+        raise HTTPException(
+            status_code=500,
+            detail={"error": type(e).__name__, "message": str(e)},
+        )
 
 
 @router.post("/", status_code=201, summary="Yeni günlük girişi kaydet")

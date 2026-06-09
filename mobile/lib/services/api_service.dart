@@ -54,6 +54,64 @@ class ApiService {
     }
   }
 
+  /// Günlük girişi backend'e kaydeder. Başarılıysa true döner.
+  static Future<bool> saveEntry(
+    String question,
+    String rawText,
+    String enrichedText,
+    String tone,
+    String mood,
+  ) async {
+    try {
+      final response = await http
+          .post(
+            Uri.parse('$_baseUrl/entries/'),
+            headers: {'Content-Type': 'application/json'},
+            body: jsonEncode({
+              'question': question,
+              'raw_text': rawText,
+              'enriched_text': enrichedText,
+              'tone': tone,
+              'mood': _moodToScore(mood),
+            }),
+          )
+          .timeout(const Duration(seconds: 30));
+      return response.statusCode == 201 || response.statusCode == 200;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  /// Tüm geçmiş girişleri çeker. Hata olursa boş liste döner.
+  static Future<List<Map<String, dynamic>>> getEntries() async {
+    try {
+      final response = await http
+          .get(
+            Uri.parse('$_baseUrl/entries/'),
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer anonymous',
+            },
+          )
+          .timeout(const Duration(seconds: 30));
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body) as Map<String, dynamic>;
+        return (data['entries'] as List).cast<Map<String, dynamic>>();
+      }
+      return [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  static int _moodToScore(String mood) => switch (mood) {
+    '😊' || '🤩' => 5,
+    '😴' => 3,
+    '😢' => 1,
+    '😠' => 2,
+    _ => 3,
+  };
+
   /// Backend erişilemezse kullanılacak yedek soru
   static String _fallbackQuestion() {
     return 'Bugün seni en çok ne düşündürdü?';
