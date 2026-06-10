@@ -4,9 +4,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class ApiService {
-  // Geliştirme ortamında lokal backend adresi
-  // Android emülatör için 10.0.2.2, iOS simülatör ve web için localhost
-  static const String _baseUrl = 'http://localhost:8080';
+  static const String _baseUrl = 'https://ayna-ai-backend.onrender.com';
 
   /// Günün sorusunu backend'den çeker.
   /// Başarısız olursa fallback soru döner — uygulama çökmez.
