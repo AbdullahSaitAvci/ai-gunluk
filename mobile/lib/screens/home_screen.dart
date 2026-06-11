@@ -66,7 +66,7 @@ class HomeScreen extends ConsumerWidget {
               ),
               const SizedBox(height: 14),
               PrimaryButton(
-                label: 'Geçmiş',
+                label: 'Takvim',
                 icon: LucideIcons.scrollText,
                 onPressed: () => Navigator.pushNamed(context, HistoryScreen.routeName),
               ),

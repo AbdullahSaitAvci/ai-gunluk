@@ -37,7 +37,7 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
     final entriesAsync = ref.watch(historyProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Geçmiş')),
+      appBar: AppBar(title: const Text('Takvim')),
       body: entriesAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (_, __) => const Center(
