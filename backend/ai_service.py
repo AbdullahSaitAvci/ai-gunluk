@@ -6,18 +6,20 @@ ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY", "")
 _MODEL = "claude-haiku-4-5"
 
 _TONE_GUIDE = {
-    "Stoacı": "sakin, nesnel ve felsefi bir ton kullan",
-    "Neşeli": "pozitif ve enerjik bir ton kullan",
-    "Sade": "düz ve samimi bir ton kullan",
+    "Neşeli": "pozitif, enerjik ve umut dolu bir ton kullan",
+    "Hüzünlü": "içe dönük, melankolik ve duygusal bir ton kullan",
+    "Minnettar": "şükran dolu, minnettarlık hissettiren bir ton kullan",
+    "Motive": "kararlı, ileri bakışlı ve güçlü bir ton kullan",
+    "Sakin": "nötr, sade ve sakin bir ton kullan",
 }
 
 _SYSTEM_PROMPT = (
-    "Kullanıcının yazdığı Türkçe metni minimal şekilde düzenle.\n"
-    "KURAL: Çıktı, girdiden maksimum %30 daha uzun olabilir.\n"
-    "Sadece yap: dilbilgisi düzeltme, sözcük akıcılığı.\n"
-    "Asla ekleme: yorum, felsefi düşünce, metafor, sonuç cümlesi.\n"
-    "Kullanıcının yazmadığı hiçbir fikri metne katma.\n"
-    "1. tekil şahıs. Sadece düzenlenmiş metni döndür."
+    "Sen bir günlük yazma asistanısın.\n"
+    "Kullanıcının yazdığı metni seçilen tonda yeniden ifade et.\n"
+    "Kısa tut: maksimum 2-3 cümle.\n"
+    "Kullanıcının söylemediği olayları veya bilgileri ekleme.\n"
+    "Türkçe yaz. 1. tekil şahıs kullan.\n"
+    "Sadece sonucu döndür."
 )
 
 

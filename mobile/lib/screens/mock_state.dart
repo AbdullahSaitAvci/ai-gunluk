@@ -9,7 +9,7 @@ final mockQuestionProvider = FutureProvider<String>((ref) async {
 
 // Geri kalanlar aynı kalıyor
 final entryTextProvider = StateProvider<String>((ref) => '');
-final selectedToneProvider = StateProvider<String>((ref) => 'Stoacı');
+final selectedToneProvider = StateProvider<String>((ref) => 'Sakin');
 final enrichedTextProvider = FutureProvider<String>((ref) async {
   final tone = ref.watch(selectedToneProvider);
   final rawText = ref.watch(entryTextProvider);

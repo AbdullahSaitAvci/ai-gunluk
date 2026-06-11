@@ -15,7 +15,7 @@ class EnrichScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedTone = ref.watch(selectedToneProvider);
     final enrichedAsync = ref.watch(enrichedTextProvider);
-    const tones = ['Stoacı', 'Neşeli', 'Sade'];
+    const tones = ['Neşeli', 'Hüzünlü', 'Minnettar', 'Motive', 'Sakin'];
 
     return Scaffold(
       appBar: AppBar(title: const Text('Zenginleştir')),
