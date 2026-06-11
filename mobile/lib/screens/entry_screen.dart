@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:mobile/screens/enrich_screen.dart';
 import 'package:mobile/screens/mock_state.dart';
+import 'package:mobile/screens/mood_screen.dart';
 import 'package:mobile/widgets/primary_button.dart';
 import 'package:mobile/widgets/section_card.dart';
 
@@ -77,11 +78,31 @@ class _EntryScreenState extends ConsumerState<EntryScreen> {
               ),
               const SizedBox(height: 20),
               PrimaryButton(
-                label: 'Zenginleştirme Ekranına Geç',
+                label: 'Zenginleştir',
                 icon: LucideIcons.wandSparkles,
                 onPressed: text.trim().isEmpty
                     ? null
                     : () => Navigator.pushNamed(context, EnrichScreen.routeName),
+              ),
+              const SizedBox(height: 12),
+              SizedBox(
+                width: double.infinity,
+                child: OutlinedButton.icon(
+                  icon: const Icon(LucideIcons.save, size: 18),
+                  label: const Text('Direkt Kaydet'),
+                  onPressed: text.trim().isEmpty
+                      ? null
+                      : () {
+                          ref.invalidate(enrichedTextProvider);
+                          Navigator.pushNamed(context, MoodScreen.routeName);
+                        },
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: Colors.white54,
+                    side: const BorderSide(color: Colors.white24),
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                  ),
+                ),
               ),
             ],
           ),
