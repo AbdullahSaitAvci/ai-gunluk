@@ -38,13 +38,13 @@ class LoginScreen extends StatelessWidget {
               ),
               const SizedBox(height: 34),
               PrimaryButton(
-                label: 'Google ile gir (Mock)',
+                label: 'Google ile gir',
                 icon: LucideIcons.logIn,
                 onPressed: () => Navigator.pushReplacementNamed(context, HomeScreen.routeName),
               ),
               const SizedBox(height: 18),
               PrimaryButton(
-                label: 'Apple ile gir (Mock)',
+                label: 'Apple ile gir',
                 icon: LucideIcons.logIn,
                 onPressed: () => Navigator.pushReplacementNamed(context, HomeScreen.routeName),
               ),
