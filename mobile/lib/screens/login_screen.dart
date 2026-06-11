@@ -38,15 +38,14 @@ class LoginScreen extends StatelessWidget {
               ),
               const SizedBox(height: 34),
               PrimaryButton(
-                label: 'Google ile gir',
+                label: 'Demo Olarak Giriş Yap',
                 icon: LucideIcons.logIn,
                 onPressed: () => Navigator.pushReplacementNamed(context, HomeScreen.routeName),
               ),
-              const SizedBox(height: 18),
-              PrimaryButton(
-                label: 'Apple ile gir',
-                icon: LucideIcons.logIn,
-                onPressed: () => Navigator.pushReplacementNamed(context, HomeScreen.routeName),
+              const SizedBox(height: 12),
+              const Text(
+                'Auth özelliği yakında eklenecek',
+                style: TextStyle(color: Colors.white38, fontSize: 12),
               ),
               const Spacer(),
             ],
