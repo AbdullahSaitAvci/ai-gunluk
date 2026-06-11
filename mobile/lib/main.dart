@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:mobile/screens/enrich_screen.dart';
 import 'package:mobile/screens/entry_screen.dart';
 import 'package:mobile/screens/history_screen.dart';
@@ -12,7 +13,9 @@ import 'package:mobile/screens/splash_screen.dart';
 import 'package:mobile/screens/success_screen.dart';
 import 'package:mobile/widgets/app_theme.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initializeDateFormatting('tr_TR', null);
   runApp(const ProviderScope(child: AynaApp()));
 }
 
