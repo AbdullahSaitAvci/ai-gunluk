@@ -43,14 +43,22 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           padding: const EdgeInsets.fromLTRB(24, 16, 24, 20),
           child: Column(
             children: [
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Text('Onboarding', style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700)),
-              ),
-              const SizedBox(height: 16),
+              if (_currentPage > 0)
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: BackButton(onPressed: () {
+                    _pageController.previousPage(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeOut,
+                    );
+                  }),
+                )
+              else
+                const SizedBox(height: 48),
               Expanded(
                 child: PageView.builder(
                   controller: _pageController,
+                  physics: const BouncingScrollPhysics(),
                   itemCount: _pages.length,
                   onPageChanged: (value) => setState(() => _currentPage = value),
                   itemBuilder: (_, index) {
