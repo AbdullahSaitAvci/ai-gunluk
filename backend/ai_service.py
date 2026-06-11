@@ -27,7 +27,12 @@ class AIService:
 
     async def enrich_entry(self, raw_text: str, tone: str) -> str:
         tone_instruction = _TONE_GUIDE.get(tone, _TONE_GUIDE["Sade"])
-        user_message = f"Ton talimatı: {tone_instruction}\n\nMetin:\n{raw_text}"
+        user_message = (
+            f"Ton talimatı: {tone_instruction}\n\n"
+            f"Orijinal metin ({len(raw_text.split())} kelime):\n{raw_text}\n\n"
+            f"Çıktı maksimum {len(raw_text.split()) + 5} kelime olsun. "
+            f"Sadece düzenlenmiş metni yaz, başka hiçbir şey yazma."
+        )
 
         message = await self._client.messages.create(
             model=_MODEL,
