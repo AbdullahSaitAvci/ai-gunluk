@@ -4,7 +4,10 @@ load_dotenv()  # En üstte olmalı, import'lardan önce
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from slowapi import _rate_limit_exceeded_handler
+from slowapi.errors import RateLimitExceeded
 from routers import entries, questions, enrich
+from limiter import limiter
 
 app = FastAPI(
     title="Ayna AI Backend",
@@ -12,10 +15,16 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Flutter'dan gelen HTTP isteklerine izin ver
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "https://ayna-ai-yga.netlify.app",
+        "http://localhost:51926",
+        "http://localhost:8080",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
