@@ -9,6 +9,28 @@ import 'package:mobile/widgets/mood_banner.dart';
 bool _isSameDay(DateTime a, DateTime b) =>
     a.year == b.year && a.month == b.month && a.day == b.day;
 
+String _moodFor(dynamic raw) {
+  if (raw is String && raw.isNotEmpty) return raw;
+  return '😊';
+}
+
+Color _moodMarkerColor(String mood) {
+  switch (mood) {
+    case '🤩':
+      return const Color(0xFFFF9966);
+    case '😊':
+      return const Color(0xFF7FB685);
+    case '😢':
+      return const Color(0xFF6FA8DC);
+    case '😠':
+      return const Color(0xFFE05A4E);
+    case '😴':
+      return const Color(0xFFB8B8E8);
+    default:
+      return const Color(0xFFC8A96E);
+  }
+}
+
 class HistoryScreen extends ConsumerStatefulWidget {
   const HistoryScreen({super.key});
 
@@ -34,11 +56,11 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
           child: Text('Yüklenemedi', style: TextStyle(color: Colors.white70)),
         ),
         data: (entries) {
-          final entryDays = <DateTime>{};
+          final entryMoodByDay = <DateTime, String>{};
           for (final e in entries) {
             try {
               final d = DateTime.parse(e['date'] as String);
-              entryDays.add(DateTime(d.year, d.month, d.day));
+              entryMoodByDay[DateTime(d.year, d.month, d.day)] = _moodFor(e['mood']);
             } catch (_) {}
           }
 
@@ -71,8 +93,24 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
                   },
                   eventLoader: (day) {
                     final d = DateTime(day.year, day.month, day.day);
-                    return entryDays.contains(d) ? [true] : [];
+                    final mood = entryMoodByDay[d];
+                    return mood != null ? [mood] : [];
                   },
+                  calendarBuilders: CalendarBuilders(
+                    markerBuilder: (context, day, events) {
+                      if (events.isEmpty) return null;
+                      final mood = events.first as String;
+                      return Container(
+                        width: 6,
+                        height: 6,
+                        margin: const EdgeInsets.only(top: 2),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: _moodMarkerColor(mood),
+                        ),
+                      );
+                    },
+                  ),
                   calendarStyle: CalendarStyle(
                     todayDecoration: BoxDecoration(
                       color: const Color(0xFFC8A96E).withOpacity(0.35),
@@ -142,10 +180,10 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                MoodBanner(mood: (item['mood'] as String?) ?? '😊'),
+                                MoodBanner(mood: _moodFor(item['mood'])),
                                 const SizedBox(height: 10),
                                 Text(
-                                  (item['mood'] as String?) ?? '😊',
+                                  _moodFor(item['mood']),
                                   style: const TextStyle(fontSize: 28),
                                 ),
                                 const SizedBox(height: 10),
