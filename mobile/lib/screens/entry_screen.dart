@@ -38,6 +38,7 @@ class _EntryScreenState extends ConsumerState<EntryScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final questionAsync = ref.watch(mockQuestionProvider);
     final text = ref.watch(entryTextProvider);
     final remaining = 500 - text.length;
 
@@ -49,7 +50,11 @@ class _EntryScreenState extends ConsumerState<EntryScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Bugün ne hissettin?', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700)),
+              questionAsync.when(
+                data: (q) => Text(q, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700)),
+                loading: () => const Text('Yükleniyor...', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white54)),
+                error: (_, __) => const Text('Bugün ne hissettin?', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700)),
+              ),
               const SizedBox(height: 14),
               Expanded(
                 child: SectionCard(
