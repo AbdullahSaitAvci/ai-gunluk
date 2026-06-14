@@ -4,17 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:mobile/screens/mock_state.dart';
 import 'package:mobile/widgets/section_card.dart';
-
-String _moodEmoji(dynamic score) {
-  final s = score is int ? score : int.tryParse(score.toString()) ?? 3;
-  return switch (s) {
-    1 => '😢',
-    2 => '😠',
-    3 => '😴',
-    4 => '😊',
-    _ => '🤩',
-  };
-}
+import 'package:mobile/widgets/mood_banner.dart';
 
 bool _isSameDay(DateTime a, DateTime b) =>
     a.year == b.year && a.month == b.month && a.day == b.day;
@@ -152,8 +142,10 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+                                MoodBanner(mood: (item['mood'] as String?) ?? '😊'),
+                                const SizedBox(height: 10),
                                 Text(
-                                  _moodEmoji(item['mood']),
+                                  (item['mood'] as String?) ?? '😊',
                                   style: const TextStyle(fontSize: 28),
                                 ),
                                 const SizedBox(height: 10),
