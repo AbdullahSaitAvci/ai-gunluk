@@ -178,42 +178,37 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
                           style: TextStyle(color: Colors.white38),
                         ),
                       )
-                    : ListView.separated(
+                    : SingleChildScrollView(
                         padding: const EdgeInsets.fromLTRB(24, 8, 24, 28),
-                        itemCount: dayEntries.length,
-                        separatorBuilder: (_, __) => const SizedBox(height: 14),
-                        itemBuilder: (_, index) {
-                          final item = dayEntries[index];
-                          return SectionCard(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                MoodBanner(mood: _moodFor(item['mood'])),
-                                const SizedBox(height: 10),
-                                Text(
-                                  _moodFor(item['mood']),
-                                  style: const TextStyle(fontSize: 28),
+                        child: SectionCard(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              MoodBanner(mood: _moodFor(dayEntries.last['mood'])),
+                              const SizedBox(height: 10),
+                              Text(
+                                _moodFor(dayEntries.last['mood']),
+                                style: const TextStyle(fontSize: 28),
+                              ),
+                              const SizedBox(height: 10),
+                              Text(
+                                dayEntries.last['question'] ?? '-',
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 16,
                                 ),
-                                const SizedBox(height: 10),
-                                Text(
-                                  item['question'] ?? '-',
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 16,
-                                  ),
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                dayEntries.last['enriched_text'] ?? '',
+                                style: const TextStyle(
+                                  color: Colors.white70,
+                                  height: 1.4,
                                 ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  item['enriched_text'] ?? '',
-                                  style: const TextStyle(
-                                    color: Colors.white70,
-                                    height: 1.4,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
               ),
             ],
