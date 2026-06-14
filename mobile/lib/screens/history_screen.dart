@@ -184,15 +184,15 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              MoodBanner(mood: _moodFor(dayEntries.last['mood'])),
+                              MoodBanner(mood: _moodFor(dayEntries.first['mood'])),
                               const SizedBox(height: 10),
                               Text(
-                                _moodFor(dayEntries.last['mood']),
+                                _moodFor(dayEntries.first['mood']),
                                 style: const TextStyle(fontSize: 28),
                               ),
                               const SizedBox(height: 10),
                               Text(
-                                dayEntries.last['question'] ?? '-',
+                                dayEntries.first['question'] ?? '-',
                                 style: const TextStyle(
                                   fontWeight: FontWeight.w700,
                                   fontSize: 16,
@@ -200,7 +200,7 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
                               ),
                               const SizedBox(height: 8),
                               Text(
-                                dayEntries.last['enriched_text'] ?? '',
+                                dayEntries.first['enriched_text'] ?? '',
                                 style: const TextStyle(
                                   color: Colors.white70,
                                   height: 1.4,
