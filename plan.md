@@ -30,7 +30,7 @@ Odak: Magic Flow, güvenli veri mimarisi, düşük gecikmeli AI deneyimi ve Play
 ## Faz 1 — Kimlik, Veri ve Navigasyon
 **Süre:** W1-W2
 
-- [ ] Supabase Auth (Google/Apple) entegrasyonu
+- [x] Demo modu ile giriş (Auth v2'ye bırakıldı — login ekranı 'Demo Olarak Giriş Yap' ile basitleştirildi)
 - [ ] users, entries, ai_interactions tablolarını oluştur
 - [ ] RLS policy'lerini devreye al
 - [x] Flutter: onboarding (3 ekran), auth ekranı, ana kabuk (mock olarak tamamlandı)
@@ -60,7 +60,7 @@ Odak: Magic Flow, güvenli veri mimarisi, düşük gecikmeli AI deneyimi ve Play
 - [ ] GET /entries (sayfalı)
 - [ ] GET /entries/{id}
 - [ ] GET /summary/monthly
-- [ ] Timeline, takvim, giriş detay ekranları
+- [x] Takvim görünümü (table_calendar) — giriş olan günler işaretli, güne tıklayınca o günün kayıtları listeleniyor
 - [ ] Aylık duygu istatistiği + AI özet paragrafı
 
 **Çıktı:** Kullanıcı geçmişini tarar, aylık trendini görür.
@@ -70,6 +70,9 @@ Odak: Magic Flow, güvenli veri mimarisi, düşük gecikmeli AI deneyimi ve Play
 ## Faz 4 — Güvenlik ve Kalite
 **Süre:** W6-W7
 
+- [x] CORS kısıtlaması (sadece production frontend origin'e izin)
+- [x] Rate limiting (/enrich için dakikada 10 istek, slowapi)
+- [x] Prompt injection koruması (anahtar kelime filtresi + karakter limiti)
 - [ ] Biyometrik kilit (FaceID/parmak izi)
 - [ ] Push bildirimi + kullanıcı saat seçimi
 - [ ] Hata izleme altyapısı
@@ -124,6 +127,14 @@ GET /summary/monthly (Özet)
 - AI metin zenginleştirme Türkçe ve ton bazlı çalışır
 - KPI ölçümü için event/telemetri üretimi doğrulanır
 - Kapalı beta yayını yapılmış
+
+---
+
+## Deploy Durumu (2026-06-14)
+
+- Backend: https://ayna-ai-backend.onrender.com (Render, ücretsiz tier)
+- Frontend Web: https://ayna-ai-yga.netlify.app (Netlify)
+- Render uyku modu cron-job.org ile önleniyor (10 dk'da bir /health ping)
 
 ---
 
