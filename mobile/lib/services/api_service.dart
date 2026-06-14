@@ -103,11 +103,12 @@ class ApiService {
   }
 
   static int _moodToScore(String mood) => switch (mood) {
-    '😊' || '🤩' => 5,
-    '😴' => 3,
     '😢' => 1,
     '😠' => 2,
-    _ => 3,
+    '😴' => 3,
+    '🤩' => 4,
+    '😊' => 5,
+    _ => 5,
   };
 
   /// Backend erişilemezse kullanılacak yedek soru

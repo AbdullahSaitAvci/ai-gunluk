@@ -11,7 +11,15 @@ bool _isSameDay(DateTime a, DateTime b) =>
 
 String _moodFor(dynamic raw) {
   if (raw is String && raw.isNotEmpty) return raw;
-  return '😊';
+  final score = raw is int ? raw : int.tryParse(raw?.toString() ?? '');
+  return switch (score) {
+    1 => '😢',
+    2 => '😠',
+    3 => '😴',
+    4 => '🤩',
+    5 => '😊',
+    _ => '😊',
+  };
 }
 
 Color _moodMarkerColor(String mood) {
