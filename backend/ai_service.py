@@ -28,7 +28,7 @@ class AIService:
         self._client = anthropic.AsyncAnthropic(api_key=ANTHROPIC_API_KEY)
 
     async def enrich_entry(self, raw_text: str, tone: str) -> str:
-        tone_instruction = _TONE_GUIDE.get(tone, _TONE_GUIDE["Sade"])
+        tone_instruction = _TONE_GUIDE.get(tone, _TONE_GUIDE["Sakin"])
         user_message = (
             f"Ton talimatı: {tone_instruction}\n\n"
             f"Orijinal metin ({len(raw_text.split())} kelime):\n{raw_text}\n\n"
