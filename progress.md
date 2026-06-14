@@ -35,3 +35,21 @@
 - api_service.dart enrichEntry metodu eklendi
 - .gitignore düzeltildi, .vscode tracking'den kaldırıldı
 - Tüm Flutter ekranları GitHub'a push edildi
+
+progress.md dosyasının sonuna şu yeni bölümü ekle:
+
+# Progress - 2026-06-14
+
+## Tamamlananlar
+- Backend Render'a deploy edildi: https://ayna-ai-backend.onrender.com
+- Flutter web Netlify'a deploy edildi: https://ayna-ai-yga.netlify.app
+- api_service.dart base URL production backend'e güncellendi
+- Login ekranı sadeleştirildi: "Demo Olarak Giriş Yap" tek butonu
+- Ayarlar ekranındaki tüm "(mock)" ifadeleri kaldırıldı, versiyon v1.0.0
+- Onboarding: başlık kaldırıldı, 2. ve 3. ekranlara geri butonu eklendi, BouncingScrollPhysics ile akıcı geçiş
+- "Geçmiş" ekranı "Takvim"e dönüştürüldü: table_calendar entegrasyonu, giriş olan günlerde işaretleyici, güne tıklayınca o günün kayıtları listeleniyor
+- Entry ekranına "Direkt Kaydet" seçeneği eklendi — AI zenginleştirme artık opsiyonel
+- AI zenginleştirme tonları 3'ten 5'e çıkarıldı: Neşeli / Hüzünlü / Minnettar / Motive / Sakin
+- AI sistem promptu sıkılaştırıldı: kelime sayısı limiti eklendi, kullanıcı sesini koruma vurgusu güçlendirildi
+- Güvenlik: prompt injection koruması (anahtar kelime filtresi), CORS kısıtlaması (sadece Netlify origin), rate limiting (slowapi, /enrich için dakikada 10 istek)
+- cron-job.org ile Render free tier uyku modu önlendi (10 dk'da bir /health ping)
