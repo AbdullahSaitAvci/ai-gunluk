@@ -8,7 +8,7 @@ router = APIRouter(prefix="/daily-question", tags=["Soru Motoru"])
 FALLBACK_QUESTIONS = [
     "Bugün seni en çok ne düşündürdü?",
     "Bugün kendine karşı nazik miydin?",
-    "Bu gün öğrendiğin küçük ama değerli bir şey var mıydı?",
+    "Bugün öğrendiğin küçük ama değerli bir şey var mıydı?",
     "Bugün neyi farklı yapardın?",
     "Şu an minnettar olduğun üç şey nedir?",
     "Bugün seni zorlayan bir şey oldu mu? Nasıl aştın?",
