@@ -53,3 +53,10 @@ progress.md dosyasının sonuna şu yeni bölümü ekle:
 - AI sistem promptu sıkılaştırıldı: kelime sayısı limiti eklendi, kullanıcı sesini koruma vurgusu güçlendirildi
 - Güvenlik: prompt injection koruması (anahtar kelime filtresi), CORS kısıtlaması (sadece Netlify origin), rate limiting (slowapi, /enrich için dakikada 10 istek)
 - cron-job.org ile Render free tier uyku modu önlendi (10 dk'da bir /health ping)
+
+# Progress - 2026-06-25
+
+## Tamamlananlar
+- Android Studio kuruldu, SDK Command-line Tools eklendi
+- flutter doctor tüm satırlar yeşil
+- pubspec.yaml versiyonu 0.1.0+1 olarak güncellendi
