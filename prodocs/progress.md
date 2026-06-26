@@ -60,3 +60,11 @@ progress.md dosyasının sonuna şu yeni bölümü ekle:
 - Android Studio kuruldu, SDK Command-line Tools eklendi
 - flutter doctor tüm satırlar yeşil
 - pubspec.yaml versiyonu 0.1.0+1 olarak güncellendi
+
+# Progress - 2026-06-26
+
+## Tamamlananlar
+- flutter build apk --debug başarıyla tamamlandı
+- NDK, Build-Tools, Platform 36 otomatik kuruldu
+- Fiziksel Android cihazda flutter run ile uygulama çalıştı
+- İlk Android build milestone tamamlandı
