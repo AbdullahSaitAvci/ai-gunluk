@@ -77,3 +77,11 @@ progress.md dosyasının sonuna şu yeni bölümü ekle:
 - Tüm temel akış çalışıyor: onboarding, kayıt, AI zenginleştirme, takvim
 - Klavye ve buton sorunları yok
 - GitHub Issues'a kaydırma animasyonu iyileştirme notu eklendi
+
+# Progress - 2026-07-04
+
+## Tamamlananlar
+- GitHub Issues kuruldu: 5 issue açıldı
+- Label'lar oluşturuldu: bug, enhancement, mobile, ui
+- v0.2.0 — Stabilizasyon milestone'u kuruldu
+- Tüm issue'lar milestone'a bağlandı
