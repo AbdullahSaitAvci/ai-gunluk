@@ -36,7 +36,7 @@
 - .gitignore düzeltildi, .vscode tracking'den kaldırıldı
 - Tüm Flutter ekranları GitHub'a push edildi
 
-progress.md dosyasının sonuna şu yeni bölümü ekle:
+
 
 # Progress - 2026-06-14
 
