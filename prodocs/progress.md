@@ -85,3 +85,11 @@
 - Label'lar oluşturuldu: bug, enhancement, mobile, ui
 - v0.2.0 — Stabilizasyon milestone'u kuruldu
 - Tüm issue'lar milestone'a bağlandı
+
+# Progress - 2026-07-06
+
+## Tamamlananlar
+- progress.md içindeki hatalı satır silindi (#5 kapatıldı)
+- BouncingScrollPhysics eklendi: enrich, history, settings ekranları (#1 kapatıldı)
+- Wireless debugging kuruldu, USB'siz deploy çalışıyor
+- Telefonda test edildi, animasyon onaylandı

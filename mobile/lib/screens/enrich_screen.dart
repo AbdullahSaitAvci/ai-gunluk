@@ -57,17 +57,18 @@ class EnrichScreen extends ConsumerWidget {
               const SizedBox(height: 10),
               Expanded(
                 child: SingleChildScrollView(
-                  child: SectionCard(
-                    child: enrichedAsync.when(
-                      data: (text) => Text(
-                        text.isEmpty ? 'Bir şeyler yaz, sonra tonu seç.' : text,
-                        style: const TextStyle(height: 1.5),
+                  physics: const BouncingScrollPhysics(), // zıplamalı kaydırma
+                    child: SectionCard(
+                      child: enrichedAsync.when(
+                        data: (text) => Text(
+                          text.isEmpty ? 'Bir şeyler yaz, sonra tonu seç.' : text,
+                          style: const TextStyle(height: 1.5),
+                        ),
+                        loading: () => const Center(child: CircularProgressIndicator()),
+                        error: (e, _) => Text('Hata: $e', style: const TextStyle(color: Colors.redAccent)),
                       ),
-                      loading: () => const Center(child: CircularProgressIndicator()),
-                      error: (e, _) => Text('Hata: $e', style: const TextStyle(color: Colors.redAccent)),
                     ),
                   ),
-                ),
               ),
               const SizedBox(height: 18),
               PrimaryButton(

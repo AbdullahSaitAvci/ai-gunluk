@@ -179,6 +179,7 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
                         ),
                       )
                     : SingleChildScrollView(
+                        physics: const BouncingScrollPhysics(),
                         padding: const EdgeInsets.fromLTRB(24, 8, 24, 28),
                         child: SectionCard(
                           child: Column(

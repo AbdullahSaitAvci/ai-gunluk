@@ -17,6 +17,7 @@ class SettingsScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Ayarlar')),
       body: ListView(
+        physics: const BouncingScrollPhysics(),
         padding: const EdgeInsets.fromLTRB(24, 16, 24, 28),
         children: [
           const Text('Gizlilik', style: TextStyle(color: Colors.white70)),
