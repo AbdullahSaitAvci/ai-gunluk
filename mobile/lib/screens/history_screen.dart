@@ -60,7 +60,7 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
       appBar: AppBar(title: const Text('Takvim')),
       body: entriesAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (_, __) => const Center(
+        error: (_, _) => const Center(
           child: Text('Yüklenemedi', style: TextStyle(color: Colors.white70)),
         ),
         data: (entries) {
@@ -68,7 +68,9 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
           for (final e in entries) {
             try {
               final d = DateTime.parse(e['date'] as String);
-              entryMoodByDay[DateTime(d.year, d.month, d.day)] = _moodFor(e['mood']);
+              entryMoodByDay[DateTime(d.year, d.month, d.day)] = _moodFor(
+                e['mood'],
+              );
             } catch (_) {}
           }
 
@@ -121,7 +123,7 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
                   ),
                   calendarStyle: CalendarStyle(
                     todayDecoration: BoxDecoration(
-                      color: const Color(0xFFC8A96E).withOpacity(0.35),
+                      color: const Color(0xFFC8A96E).withValues(alpha: 0.35),
                       shape: BoxShape.circle,
                     ),
                     selectedDecoration: const BoxDecoration(
@@ -132,7 +134,10 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
                     weekendTextStyle: const TextStyle(color: Colors.white70),
                     outsideTextStyle: const TextStyle(color: Colors.white24),
                     todayTextStyle: const TextStyle(color: Colors.white),
-                    selectedTextStyle: const TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
+                    selectedTextStyle: const TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w700,
+                    ),
                     markerDecoration: const BoxDecoration(
                       color: Color(0xFFC8A96E),
                       shape: BoxShape.circle,
@@ -149,13 +154,25 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                     ),
-                    leftChevronIcon: Icon(Icons.chevron_left, color: Colors.white),
-                    rightChevronIcon: Icon(Icons.chevron_right, color: Colors.white),
+                    leftChevronIcon: Icon(
+                      Icons.chevron_left,
+                      color: Colors.white,
+                    ),
+                    rightChevronIcon: Icon(
+                      Icons.chevron_right,
+                      color: Colors.white,
+                    ),
                     headerPadding: EdgeInsets.symmetric(vertical: 8),
                   ),
                   daysOfWeekStyle: const DaysOfWeekStyle(
-                    weekdayStyle: TextStyle(color: Colors.white70, fontSize: 12),
-                    weekendStyle: TextStyle(color: Colors.white38, fontSize: 12),
+                    weekdayStyle: TextStyle(
+                      color: Colors.white70,
+                      fontSize: 12,
+                    ),
+                    weekendStyle: TextStyle(
+                      color: Colors.white38,
+                      fontSize: 12,
+                    ),
                   ),
                 ),
               ),
@@ -185,7 +202,9 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              MoodBanner(mood: _moodFor(dayEntries.first['mood'])),
+                              MoodBanner(
+                                mood: _moodFor(dayEntries.first['mood']),
+                              ),
                               const SizedBox(height: 10),
                               Text(
                                 _moodFor(dayEntries.first['mood']),

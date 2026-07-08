@@ -23,10 +23,7 @@ class MoodBanner extends StatelessWidget {
             end: Alignment.bottomRight,
           ),
         ),
-        child: Stack(
-          clipBehavior: Clip.hardEdge,
-          children: visual.decorations,
-        ),
+        child: Stack(clipBehavior: Clip.hardEdge, children: visual.decorations),
       ),
     );
   }
@@ -50,14 +47,20 @@ final Map<String, _MoodVisual> _visuals = {
         child: Container(
           width: 36,
           height: 36,
-          decoration: const BoxDecoration(shape: BoxShape.circle, color: Color(0xFFFFE08A)),
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            color: Color(0xFFFFE08A),
+          ),
         ),
       ),
       Positioned(
         left: 0,
         right: 0,
         bottom: 0,
-        child: Container(height: 26, color: Colors.black.withOpacity(0.18)),
+        child: Container(
+          height: 26,
+          color: Colors.black.withValues(alpha: 0.18),
+        ),
       ),
     ],
   ),
@@ -72,14 +75,20 @@ final Map<String, _MoodVisual> _visuals = {
         child: Container(
           width: 30,
           height: 30,
-          decoration: const BoxDecoration(shape: BoxShape.circle, color: Color(0xFFFFD699)),
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            color: Color(0xFFFFD699),
+          ),
         ),
       ),
       Positioned(
         left: 0,
         right: 0,
         bottom: 0,
-        child: Container(height: 30, color: const Color(0xFF1F3D2E).withOpacity(0.55)),
+        child: Container(
+          height: 30,
+          color: const Color(0xFF1F3D2E).withValues(alpha: 0.55),
+        ),
       ),
     ],
   ),
@@ -94,7 +103,10 @@ final Map<String, _MoodVisual> _visuals = {
         child: Container(
           width: 60,
           height: 22,
-          decoration: BoxDecoration(color: Colors.white.withOpacity(0.18), borderRadius: BorderRadius.circular(20)),
+          decoration: BoxDecoration(
+            color: Colors.white.withValues(alpha: 0.18),
+            borderRadius: BorderRadius.circular(20),
+          ),
         ),
       ),
       ..._rainDrops(),
@@ -111,14 +123,20 @@ final Map<String, _MoodVisual> _visuals = {
         child: Container(
           width: 70,
           height: 26,
-          decoration: BoxDecoration(color: Colors.black.withOpacity(0.30), borderRadius: BorderRadius.circular(20)),
+          decoration: BoxDecoration(
+            color: Colors.black.withValues(alpha: 0.30),
+            borderRadius: BorderRadius.circular(20),
+          ),
         ),
       ),
       Positioned(
         left: 60,
         top: 6,
         bottom: 6,
-        child: CustomPaint(size: const Size(20, 60), painter: _LightningPainter()),
+        child: CustomPaint(
+          size: const Size(20, 60),
+          painter: _LightningPainter(),
+        ),
       ),
     ],
   ),
@@ -133,7 +151,10 @@ final Map<String, _MoodVisual> _visuals = {
         child: Container(
           width: 28,
           height: 28,
-          decoration: const BoxDecoration(shape: BoxShape.circle, color: Color(0xFFE8E4D8)),
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            color: Color(0xFFE8E4D8),
+          ),
         ),
       ),
       ..._stars(),
@@ -142,17 +163,32 @@ final Map<String, _MoodVisual> _visuals = {
 };
 
 List<Widget> _rainDrops() {
-  const positions = [20.0, 50.0, 80.0, 110.0, 140.0, 170.0, 200.0, 230.0, 260.0];
+  const positions = [
+    20.0,
+    50.0,
+    80.0,
+    110.0,
+    140.0,
+    170.0,
+    200.0,
+    230.0,
+    260.0,
+  ];
   return positions
-      .map((x) => Positioned(
-            left: x,
-            top: 38,
-            child: Container(
-              width: 2,
-              height: 16,
-              decoration: BoxDecoration(color: Colors.white.withOpacity(0.35), borderRadius: BorderRadius.circular(2)),
+      .map(
+        (x) => Positioned(
+          left: x,
+          top: 38,
+          child: Container(
+            width: 2,
+            height: 16,
+            decoration: BoxDecoration(
+              color: Colors.white.withValues(alpha: 0.35),
+              borderRadius: BorderRadius.circular(2),
             ),
-          ))
+          ),
+        ),
+      )
       .toList();
 }
 
@@ -167,15 +203,20 @@ List<Widget> _stars() {
     Offset(260, 14),
   ];
   return positions
-      .map((o) => Positioned(
-            left: o.dx,
-            top: o.dy,
-            child: Container(
-              width: 3,
-              height: 3,
-              decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+      .map(
+        (o) => Positioned(
+          left: o.dx,
+          top: o.dy,
+          child: Container(
+            width: 3,
+            height: 3,
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.white,
             ),
-          ))
+          ),
+        ),
+      )
       .toList();
 }
 

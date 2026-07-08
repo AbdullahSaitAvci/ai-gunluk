@@ -29,8 +29,13 @@ class _MoodScreenState extends ConsumerState<MoodScreen> {
     final tone = ref.read(selectedToneProvider);
     final mood = ref.read(selectedMoodProvider);
 
-    ApiService.saveEntry(question, rawText, enrichedText, tone, mood)
-        .whenComplete(() {
+    ApiService.saveEntry(
+      question,
+      rawText,
+      enrichedText,
+      tone,
+      mood,
+    ).whenComplete(() {
       if (mounted) {
         Navigator.pushNamed(context, SuccessScreen.routeName);
       }
@@ -50,7 +55,10 @@ class _MoodScreenState extends ConsumerState<MoodScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Bugünkü ruh hâlin nasıl?', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700)),
+              const Text(
+                'Bugünkü ruh hâlin nasıl?',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+              ),
               const SizedBox(height: 18),
               Expanded(
                 child: GridView.count(
@@ -60,20 +68,25 @@ class _MoodScreenState extends ConsumerState<MoodScreen> {
                   children: moods.map((mood) {
                     final isSelected = mood == selectedMood;
                     return InkWell(
-                      onTap: () => ref.read(selectedMoodProvider.notifier).state = mood,
+                      onTap: () =>
+                          ref.read(selectedMoodProvider.notifier).state = mood,
                       borderRadius: BorderRadius.circular(18),
                       child: AnimatedContainer(
                         duration: const Duration(milliseconds: 150),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(18),
                           border: Border.all(
-                            color: isSelected ? const Color(0xFFC8A96E) : Colors.transparent,
+                            color: isSelected
+                                ? const Color(0xFFC8A96E)
+                                : Colors.transparent,
                             width: 2,
                           ),
                           boxShadow: isSelected
                               ? [
                                   BoxShadow(
-                                    color: const Color(0xFFC8A96E).withOpacity(0.25),
+                                    color: const Color(
+                                      0xFFC8A96E,
+                                    ).withValues(alpha: 0.25),
                                     blurRadius: 12,
                                     spreadRadius: 1,
                                   ),
@@ -85,7 +98,10 @@ class _MoodScreenState extends ConsumerState<MoodScreen> {
                             child: AnimatedScale(
                               scale: isSelected ? 1.15 : 1.0,
                               duration: const Duration(milliseconds: 150),
-                              child: Text(mood, style: const TextStyle(fontSize: 40)),
+                              child: Text(
+                                mood,
+                                style: const TextStyle(fontSize: 40),
+                              ),
                             ),
                           ),
                         ),
@@ -97,9 +113,16 @@ class _MoodScreenState extends ConsumerState<MoodScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(LucideIcons.badgeCheck, color: Color(0xFFC8A96E), size: 18),
+                  const Icon(
+                    LucideIcons.badgeCheck,
+                    color: Color(0xFFC8A96E),
+                    size: 18,
+                  ),
                   const SizedBox(width: 8),
-                  Text('Seçili: $selectedMood', style: const TextStyle(color: Colors.white70)),
+                  Text(
+                    'Seçili: $selectedMood',
+                    style: const TextStyle(color: Colors.white70),
+                  ),
                 ],
               ),
               const SizedBox(height: 16),

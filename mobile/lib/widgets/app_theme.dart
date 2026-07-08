@@ -17,7 +17,10 @@ class AppTheme {
         surface: card,
       ),
       textTheme: const TextTheme(
-        headlineSmall: TextStyle(color: textPrimary, fontWeight: FontWeight.w700),
+        headlineSmall: TextStyle(
+          color: textPrimary,
+          fontWeight: FontWeight.w700,
+        ),
         titleMedium: TextStyle(color: textPrimary, fontWeight: FontWeight.w600),
         bodyMedium: TextStyle(color: textPrimary),
         bodySmall: TextStyle(color: textSecondary),

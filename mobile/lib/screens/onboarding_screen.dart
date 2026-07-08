@@ -18,9 +18,21 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   int _currentPage = 0;
 
   final List<(String, String, IconData)> _pages = const [
-    ('Hoş geldin', 'Her gün tek bir soruyla kendine aynadan bak.', LucideIcons.sun),
-    ('Sesin korunur', 'AI senin yerine yazmaz, sadece yazdıklarını parlatır.', LucideIcons.sparkles),
-    ('Güvenli alan', 'Günlüklerin senin kontrolünde ve gizliliğine saygılı.', LucideIcons.shield),
+    (
+      'Hoş geldin',
+      'Her gün tek bir soruyla kendine aynadan bak.',
+      LucideIcons.sun,
+    ),
+    (
+      'Sesin korunur',
+      'AI senin yerine yazmaz, sadece yazdıklarını parlatır.',
+      LucideIcons.sparkles,
+    ),
+    (
+      'Güvenli alan',
+      'Günlüklerin senin kontrolünde ve gizliliğine saygılı.',
+      LucideIcons.shield,
+    ),
   ];
 
   /// Onboarding adımlarını ilerletir veya giriş ekranına yönlendirir.
@@ -46,12 +58,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               if (_currentPage > 0)
                 Align(
                   alignment: Alignment.centerLeft,
-                  child: BackButton(onPressed: () {
-                    _pageController.previousPage(
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.easeOut,
-                    );
-                  }),
+                  child: BackButton(
+                    onPressed: () {
+                      _pageController.previousPage(
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.easeOut,
+                      );
+                    },
+                  ),
                 )
               else
                 const SizedBox(height: 48),
@@ -60,7 +74,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   controller: _pageController,
                   physics: const BouncingScrollPhysics(),
                   itemCount: _pages.length,
-                  onPageChanged: (value) => setState(() => _currentPage = value),
+                  onPageChanged: (value) =>
+                      setState(() => _currentPage = value),
                   itemBuilder: (_, index) {
                     final page = _pages[index];
                     return Center(
@@ -70,9 +85,20 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           children: [
                             Icon(page.$3, size: 52),
                             const SizedBox(height: 24),
-                            Text(page.$1, style: Theme.of(context).textTheme.headlineSmall, textAlign: TextAlign.center),
+                            Text(
+                              page.$1,
+                              style: Theme.of(context).textTheme.headlineSmall,
+                              textAlign: TextAlign.center,
+                            ),
                             const SizedBox(height: 12),
-                            Text(page.$2, textAlign: TextAlign.center, style: const TextStyle(fontSize: 16, color: Colors.white70)),
+                            Text(
+                              page.$2,
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                fontSize: 16,
+                                color: Colors.white70,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -90,14 +116,18 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     margin: const EdgeInsets.symmetric(horizontal: 4),
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: index == _currentPage ? Colors.white : Colors.white24,
+                      color: index == _currentPage
+                          ? Colors.white
+                          : Colors.white24,
                     ),
                   ),
                 ),
               ),
               const SizedBox(height: 22),
               PrimaryButton(
-                label: _currentPage == _pages.length - 1 ? 'Başlayalım' : 'Devam et',
+                label: _currentPage == _pages.length - 1
+                    ? 'Başlayalım'
+                    : 'Devam et',
                 onPressed: _next,
               ),
             ],

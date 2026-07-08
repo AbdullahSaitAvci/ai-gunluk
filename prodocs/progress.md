@@ -93,3 +93,11 @@
 - BouncingScrollPhysics eklendi: enrich, history, settings ekranları (#1 kapatıldı)
 - Wireless debugging kuruldu, USB'siz deploy çalışıyor
 - Telefonda test edildi, animasyon onaylandı
+
+# Progress - 2026-07-08
+
+## Tamamlananlar
+- flutter analyze: 10 issue → 0 issue
+- withOpacity → withValues(alpha:) migration (8 yerde)
+- dangling_library_doc_comment düzeltildi (api_service.dart)
+- dart format: 14 dosya formatlandı

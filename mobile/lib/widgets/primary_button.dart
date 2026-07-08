@@ -57,12 +57,19 @@ class _PrimaryButtonState extends State<PrimaryButton> {
                   ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppTheme.primary,
-                    disabledBackgroundColor: AppTheme.primary.withValues(alpha: 0.4),
+                    disabledBackgroundColor: AppTheme.primary.withValues(
+                      alpha: 0.4,
+                    ),
                     overlayColor: Colors.black.withValues(alpha: 0.12),
                     elevation: 3,
                     shadowColor: AppTheme.primary.withValues(alpha: 0.5),
-                    padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 18),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 14,
+                      horizontal: 18,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
                   ),
                 ),
               ),

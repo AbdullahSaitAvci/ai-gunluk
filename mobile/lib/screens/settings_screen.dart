@@ -27,9 +27,13 @@ class SettingsScreen extends ConsumerWidget {
               contentPadding: EdgeInsets.zero,
               secondary: const Icon(LucideIcons.bell),
               value: notificationsEnabled,
-              onChanged: (value) => ref.read(notificationsEnabledProvider.notifier).state = value,
+              onChanged: (value) =>
+                  ref.read(notificationsEnabledProvider.notifier).state = value,
               title: const Text('Günlük bildirim'),
-              subtitle: const Text('Saat 21:00', style: TextStyle(color: Colors.white70)),
+              subtitle: const Text(
+                'Saat 21:00',
+                style: TextStyle(color: Colors.white70),
+              ),
             ),
           ),
           const SizedBox(height: 14),
@@ -38,9 +42,13 @@ class SettingsScreen extends ConsumerWidget {
               contentPadding: EdgeInsets.zero,
               secondary: const Icon(LucideIcons.lockKeyhole),
               value: biometricEnabled,
-              onChanged: (value) => ref.read(biometricEnabledProvider.notifier).state = value,
+              onChanged: (value) =>
+                  ref.read(biometricEnabledProvider.notifier).state = value,
               title: const Text('Biyometrik kilit'),
-              subtitle: const Text('FaceID / Parmak izi', style: TextStyle(color: Colors.white70)),
+              subtitle: const Text(
+                'FaceID / Parmak izi',
+                style: TextStyle(color: Colors.white70),
+              ),
             ),
           ),
           const SizedBox(height: 22),
@@ -51,7 +59,10 @@ class SettingsScreen extends ConsumerWidget {
               contentPadding: EdgeInsets.zero,
               leading: Icon(LucideIcons.circleUserRound),
               title: Text('Hesap bilgileri'),
-              subtitle: Text('demo@ayna.ai', style: TextStyle(color: Colors.white70)),
+              subtitle: Text(
+                'demo@ayna.ai',
+                style: TextStyle(color: Colors.white70),
+              ),
             ),
           ),
           const SizedBox(height: 14),

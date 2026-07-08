@@ -18,7 +18,11 @@ class SuccessScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(LucideIcons.circleCheckBig, size: 110, color: Color(0xFFC8A96E)),
+              const Icon(
+                LucideIcons.circleCheckBig,
+                size: 110,
+                color: Color(0xFFC8A96E),
+              ),
               const SizedBox(height: 24),
               const Text(
                 'Kaydetme Başarılı 🎉',

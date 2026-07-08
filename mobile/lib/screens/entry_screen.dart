@@ -51,9 +51,25 @@ class _EntryScreenState extends ConsumerState<EntryScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               questionAsync.when(
-                data: (q) => Text(q, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700)),
-                loading: () => const Text('Yükleniyor...', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white54)),
-                error: (_, __) => const Text('Bugün ne hissettin?', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700)),
+                data: (q) => Text(
+                  q,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                loading: () => const Text(
+                  'Yükleniyor...',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white54,
+                  ),
+                ),
+                error: (_, _) => const Text(
+                  'Bugün ne hissettin?',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+                ),
               ),
               const SizedBox(height: 14),
               Expanded(
@@ -79,7 +95,10 @@ class _EntryScreenState extends ConsumerState<EntryScreen> {
               const SizedBox(height: 8),
               Align(
                 alignment: Alignment.bottomRight,
-                child: Text('$remaining karakter kaldı', style: const TextStyle(color: Colors.white70)),
+                child: Text(
+                  '$remaining karakter kaldı',
+                  style: const TextStyle(color: Colors.white70),
+                ),
               ),
               const SizedBox(height: 20),
               PrimaryButton(
@@ -87,7 +106,8 @@ class _EntryScreenState extends ConsumerState<EntryScreen> {
                 icon: LucideIcons.wandSparkles,
                 onPressed: text.trim().isEmpty
                     ? null
-                    : () => Navigator.pushNamed(context, EnrichScreen.routeName),
+                    : () =>
+                          Navigator.pushNamed(context, EnrichScreen.routeName),
               ),
               const SizedBox(height: 12),
               SizedBox(
@@ -105,7 +125,9 @@ class _EntryScreenState extends ConsumerState<EntryScreen> {
                     foregroundColor: Colors.white54,
                     side: const BorderSide(color: Colors.white24),
                     padding: const EdgeInsets.symmetric(vertical: 14),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(14),
+                    ),
                   ),
                 ),
               ),

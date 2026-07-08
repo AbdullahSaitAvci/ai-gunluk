@@ -1,5 +1,5 @@
-/// Backend API ile iletişimi yöneten servis katmanı.
-/// Tüm HTTP istekleri buradan yapılır — ekranlar doğrudan API'ye dokunmaz.
+// Backend API ile iletişimi yöneten servis katmanı.
+// Tüm HTTP istekleri buradan yapılır — ekranlar doğrudan API'ye dokunmaz.
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 

@@ -19,14 +19,27 @@ class LoginScreen extends StatelessWidget {
           child: Column(
             children: [
               const SizedBox(height: 20),
-              const Icon(LucideIcons.sparkles, size: 24, color: Color(0xFFC8A96E)),
+              const Icon(
+                LucideIcons.sparkles,
+                size: 24,
+                color: Color(0xFFC8A96E),
+              ),
               const SizedBox(height: 10),
-              const Text('Ayna AI', style: TextStyle(fontSize: 18, color: Colors.white70)),
+              const Text(
+                'Ayna AI',
+                style: TextStyle(fontSize: 18, color: Colors.white70),
+              ),
               const Spacer(),
               const SectionCard(
                 child: Column(
                   children: [
-                    Text('Tek dokunuşla devam et', style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700)),
+                    Text(
+                      'Tek dokunuşla devam et',
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                     SizedBox(height: 12),
                     Text(
                       'Mock giriş ekranı. Gerçek auth bağlantısı yok.',
@@ -40,7 +53,10 @@ class LoginScreen extends StatelessWidget {
               PrimaryButton(
                 label: 'Demo Olarak Giriş Yap',
                 icon: LucideIcons.logIn,
-                onPressed: () => Navigator.pushReplacementNamed(context, HomeScreen.routeName),
+                onPressed: () => Navigator.pushReplacementNamed(
+                  context,
+                  HomeScreen.routeName,
+                ),
               ),
               const SizedBox(height: 12),
               const Text(
