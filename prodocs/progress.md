@@ -101,3 +101,21 @@
 - withOpacity → withValues(alpha:) migration (8 yerde)
 - dangling_library_doc_comment düzeltildi (api_service.dart)
 - dart format: 14 dosya formatlandı
+
+# Progress - 2026-07-09
+
+## Tamamlananlar
+- pubspec.yaml versiyonu 0.2.0+2 olarak güncellendi
+- GitHub Issues #1 ve #5 kapatıldı
+- README.md güncellendi: versiyon, Android build durumu, kurulum komutu
+- v0.2.0 — Stabilizasyon milestone'u tamamlandı
+
+## Hafta 1 Özeti
+- Android toolchain kuruldu (SDK, NDK, Command-line Tools)
+- İlk Android debug APK build başarılı
+- Wireless ADB debugging kuruldu
+- Fiziksel cihazda uçtan uca test tamamlandı
+- flutter analyze: 10 issue → 0 issue
+- dart format: 14 dosya formatlandı
+- GitHub Issues + v0.2.0 milestone kuruldu
+- BouncingScrollPhysics ile kaydırma animasyonu iyileştirildi
