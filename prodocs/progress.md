@@ -119,3 +119,21 @@
 - dart format: 14 dosya formatlandı
 - GitHub Issues + v0.2.0 milestone kuruldu
 - BouncingScrollPhysics ile kaydırma animasyonu iyileştirildi
+
+
+# Progress - 2026-07-10
+
+## Tamamlananlar
+- applicationId + namespace: com.example.mobile → com.aynaai (#2)
+- MainActivity.kt yeni package'a taşındı (git mv), package satırı güncellendi
+- INTERNET izni main manifest'e eklendi — release APK artık backend'e ulaşır (#3)
+
+## Debug notu — web'de boş takvim (CORS)
+- Chrome/flutter web'de takvim boştu; kök neden CORS
+- Backend allow_origins sabit port istiyor, flutter run rastgele port kullanıyor
+- Geçici çözüm: flutter run -d chrome --web-port 8080 (origin allowlist ile eşleşir)
+- Android'de CORS yok → ürün hiç bozuk değildi; veri Supabase'de sağlam (29 kayıt)
+
+## Öğrenilen
+- namespace (derleme içi) ≠ applicationId (Play Store'da kalıcı kimlik)
+- getEntries() hatayı yutup [] dönüyor → "yüklenemedi" ile "veri yok" ayırt edilemiyor
