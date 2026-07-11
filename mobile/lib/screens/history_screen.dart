@@ -60,8 +60,35 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
       appBar: AppBar(title: const Text('Takvim')),
       body: entriesAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (_, _) => const Center(
-          child: Text('Yüklenemedi', style: TextStyle(color: Colors.white70)),
+        error: (err, _) => Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Text(
+                  'Yüklenemedi',
+                  style: TextStyle(color: Colors.white70),
+                ),
+                const SizedBox(height: 6),
+                // ApiException.toString() kullanıcıya gösterilebilir Türkçe
+                // mesaj döner (örn. "Sunucuya ulaşılamadı (zaman aşımı).")
+                Text(
+                  err.toString(),
+                  style: const TextStyle(color: Colors.white38, fontSize: 12),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 14),
+                TextButton(
+                  onPressed: () => ref.invalidate(historyProvider),
+                  child: const Text(
+                    'Tekrar Dene',
+                    style: TextStyle(color: Color(0xFFC8A96E)),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
         data: (entries) {
           final entryMoodByDay = <DateTime, String>{};
