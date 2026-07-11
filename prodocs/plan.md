@@ -1,5 +1,28 @@
 # Ayna AI — MVP Geliştirme Planı
 
+## Çalışma Kuralları (kalıcı — her oturumda geçerli)
+
+**Araçlar:**
+- Geliştirme: VS Code içinde **Claude Code** (Cursor artık KULLANILMIYOR)
+- Kod değişiklikleri Claude Code'a net prompt olarak verilir
+- **git commit/push: Claude Code'dan DEĞİL, elle normal terminalden** (repo kökü ~/ai-gunluk baz alınır)
+
+**Model/effort seçimi (Claude Code):**
+- Her prompt'un başında `/model` ve `/effort` AYRI satır/mesaj olarak verilir
+- Claude Code'da ayrı "thinking" komutu yoktur — effort seviyesi thinking derinliğini kapsar
+- Rutin/net iş: sonnet + low | Çok dosyalı/tutarlılık: sonnet + medium | Geri dönüşü zor tasarım kararı: opus + high
+
+**Oturum ritmi:**
+- Adım adım: bir görev, tamamla, rapor et, sonra devam (batch yok)
+- Önce "neden", sonra uygulama
+- Her görev = ayrı commit (feat/fix/docs/chore), semantic mesaj
+- **Her gün sonunda progress.md'ye o günün girişi eklenir** (geçmişe bakış için kritik)
+- **Her gün sonunda kapanış özeti:** (1) bugün ne bitti, (2) sonraki gün ne yapılacak, (3) sonraki gün için önerilen model + effort
+
+**Planlama döngüsü:**
+- Uzun vade: bu plan.md'deki fazlar (W1, W2-W4...) — büyük roadmap
+- Günlük görev: plan.md'deki açık maddeler [ ] + GitHub Issues'tan seçilir
+
 ## Hedef ve Kapsam
 Bu plan, PRD.md dokümanındaki v1.0 (MVP) kapsamını hayata geçirmek için hazırlanmıştır.
 Odak: Magic Flow, güvenli veri mimarisi, düşük gecikmeli AI deneyimi ve Play Store beta yayını.
@@ -9,7 +32,7 @@ Odak: Magic Flow, güvenli veri mimarisi, düşük gecikmeli AI deneyimi ve Play
 - AI davranışı "ghostwriting değil parlatma" ilkesine bağlıdır
 - Tüm AI çağrıları tek noktadan (ai_service.py) yapılır
 - Gizlilik varsayılanı: RLS, biyometrik kilit, şeffaf veri politikası
-- Teknik kararlar için ana referanslar: PRD.md ve .cursorrules
+- Teknik kararlar için ana referanslar: PRD.md ve CLAUDE.md (Claude Code talimatları)
 
 ---
 
@@ -17,8 +40,8 @@ Odak: Magic Flow, güvenli veri mimarisi, düşük gecikmeli AI deneyimi ve Play
 **Süre:** W1 başı (tamamlandı)
 
 - [x] Monorepo yapısı: mobile/ (Flutter) ve backend/ (FastAPI)
-- [x] Cursor rules: FastAPI, Flutter+Supabase, design system
-- [x] FastAPI ve Flutter dokümantasyonu Cursor'a eklendi
+- [x] Proje kuralları (CLAUDE.md): FastAPI, Flutter+Supabase, design system
+- [x] FastAPI ve Flutter dokümantasyonu proje dokümanlarına eklendi
 - [x] Backend iskeleti + /health endpoint çalışıyor
 - [x] Flutter mobile iskeleti Chrome'da çalışıyor
 - [x] progress.md ve progress-log command eklendi

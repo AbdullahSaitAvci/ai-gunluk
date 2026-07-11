@@ -121,6 +121,7 @@
 - BouncingScrollPhysics ile kaydırma animasyonu iyileştirildi
 
 
+
 # Progress - 2026-07-10
 
 ## Tamamlananlar
@@ -137,3 +138,23 @@
 ## Öğrenilen
 - namespace (derleme içi) ≠ applicationId (Play Store'da kalıcı kimlik)
 - getEntries() hatayı yutup [] dönüyor → "yüklenemedi" ile "veri yok" ayırt edilemiyor
+
+
+# Progress - 2026-07-10 (Gün 9)
+
+## Tamamlananlar
+- getEntries() artık hatayı yutmuyor: ApiException fırlatıyor (network/timeout/sunucu ayrı mesajlar)
+- Soğuk başlangıç için tek seferlik retry: 30sn ilk deneme → başarısızsa 45sn ikinci deneme
+- Takvimde error: dalı gerçek hata mesajı + "Tekrar Dene" butonu (ref.invalidate) gösteriyor
+- Pull-to-refresh eklendi: Column+Expanded → ListView, RefreshIndicator ile sarıldı
+- _refreshablePhysics: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()) — bounce hissi korundu
+- Telefonda (wireless ADB) test edildi: yenileme efekti ve fonksiyonu çalışıyor
+- Commit'ler: 7a9930c (hata yönetimi), db43a52 (pull-to-refresh)
+
+## Tespit edilen / açılan
+- Issue #6: Günlük kaydı sonrası state temizlenmiyor (entryTextProvider vb. StateProvider'lar reset edilmiyor, mood_screen _save() whenComplete'inde temizlik yok)
+
+## Öğrenilen
+- FutureProvider (autoDispose değil) ilk sonucu cache'ler; RefreshIndicator scrollable child ister
+- Claude Code: /model ve /effort AYRI mesajlar olmalı, "|" ile zincirlenmez; ayrı thinking komutu yok (effort = thinking derinliği)
+- Web'deki CORS sorunları Android'de yok — Play Store hedefi için web sadece hızlı önizleme
