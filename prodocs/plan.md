@@ -17,7 +17,7 @@
 - Önce "neden", sonra uygulama
 - Her görev = ayrı commit (feat/fix/docs/chore), semantic mesaj
 - **Her gün sonunda progress.md'ye o günün girişi eklenir** (geçmişe bakış için kritik)
-- **Her gün sonunda kapanış özeti:** (1) bugün ne bitti, (2) sonraki gün ne yapılacak, (3) sonraki gün için önerilen model + effort
+- **Her gün sonunda kapanış özeti:** (1) bugün ne bitti, (2) sonraki gün ne yapılacak, (3) sonraki gün için claude web tarayıcısında kullanılması önerilen model + effort + thinking modu (açık/kapalı)
 
 **Planlama döngüsü:**
 - Uzun vade: bu plan.md'deki fazlar (W1, W2-W4...) — büyük roadmap
