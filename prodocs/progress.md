@@ -158,3 +158,27 @@
 - FutureProvider (autoDispose değil) ilk sonucu cache'ler; RefreshIndicator scrollable child ister
 - Claude Code: /model ve /effort AYRI mesajlar olmalı, "|" ile zincirlenmez; ayrı thinking komutu yok (effort = thinking derinliği)
 - Web'deki CORS sorunları Android'de yok — Play Store hedefi için web sadece hızlı önizleme
+
+
+# Progress - 2026-07-12 (Gün 10)
+
+## Tamamlananlar
+- Issue #6 çözüldü: SuccessScreen artık ConsumerWidget
+- "Ana Sayfaya Dön" tıklanınca entryTextProvider, selectedToneProvider,
+  selectedMoodProvider, enrichedTextProvider ref.invalidate() ile sıfırlanıyor
+- Reset noktası bilinçli olarak success_screen'de seçildi (mood_screen._save()
+  değil) — çünkü _save() sonrası normal pushNamed kullanılıyor, stack
+  temizlenmiyor; erken reset, altta mount'lu duran EnrichScreen'de gereksiz
+  bir AI zenginleştirme API çağrısı tetikleyebilirdi
+- Telefonda (wireless ADB) manuel test edildi, doğrulandı
+- Branch ismi düzeltildi: Abdullah02100/A → main (GitHub'da rename edilmişti,
+  lokal git senkronize edildi)
+
+## Öğrenilen
+- ref.invalidate() bir provider'ı kendi tanımındaki başlangıç değerine
+  döndürür — manuel .state = x atamaktan daha az hataya açık
+  (varsayılan değişirse tek yerden güncellenir)
+- Reset noktası seçimi kritik: "hangi an state'i temizlemek güvenli" sorusu,
+  o an hangi widget'ların hâlâ mount'lu olduğuna bağlı
+- GitHub'da branch rename yapınca lokal git otomatik senkronize olmuyor;
+  git branch -m + fetch --prune + push -u gerekiyor
