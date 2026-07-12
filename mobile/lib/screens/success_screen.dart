@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:mobile/screens/home_screen.dart';
+import 'package:mobile/screens/mock_state.dart';
 import 'package:mobile/widgets/primary_button.dart';
 
-class SuccessScreen extends StatelessWidget {
+class SuccessScreen extends ConsumerWidget {
   const SuccessScreen({super.key});
 
   static const routeName = '/success';
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(title: const Text('Tamamlandı')),
       body: SafeArea(
@@ -38,11 +40,17 @@ class SuccessScreen extends StatelessWidget {
               PrimaryButton(
                 label: 'Ana Sayfaya Dön',
                 icon: LucideIcons.house,
-                onPressed: () => Navigator.pushNamedAndRemoveUntil(
-                  context,
-                  HomeScreen.routeName,
-                  (route) => false,
-                ),
+                onPressed: () {
+                  ref.invalidate(entryTextProvider);
+                  ref.invalidate(selectedToneProvider);
+                  ref.invalidate(selectedMoodProvider);
+                  ref.invalidate(enrichedTextProvider);
+                  Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    HomeScreen.routeName,
+                    (route) => false,
+                  );
+                },
               ),
             ],
           ),
