@@ -182,3 +182,23 @@
   o an hangi widget'ların hâlâ mount'lu olduğuna bağlı
 - GitHub'da branch rename yapınca lokal git otomatik senkronize olmuyor;
   git branch -m + fetch --prune + push -u gerekiyor
+
+
+# Progress - 2026-07-13 (Gün 11)
+
+## Tamamlananlar
+- Issue #4 çözüldü: /health endpoint'ine Supabase keep-alive sorgusu eklendi
+- entries tablosundan select("id").limit(1) — minimal veri, gerçek "aktivite"
+- try/except: hata olsa bile /health her zaman 200 döner (Render kontrolü
+  Supabase durumundan bağımsız kalıyor)
+- Yanıta "supabase": "ok"/"unreachable" alanı eklendi (görünürlük için)
+- Lokalde (uvicorn) ve canlıda (curl) doğrulandı
+- Commit push edildi, Render otomatik deploy oldu
+
+## Öğrenilen
+- Supabase resmi dokümantasyonu: ücretsiz tier, son 1 hafta içinde yeterli
+  veritabanı aktivitesi almazsa pause oluyor; günde birkaç istek bile yeterli
+- Zaten var olan cron altyapısı (cron-job.org → /health) genişletilerek yeni
+  bir servise gerek kalmadan iki ayrı "uyuma" sorunu (Render + Supabase)
+  tek ping ile çözülebiliyor
+- Bu fix mevcut pause'u geri açmaz — sadece gelecekteki pause'ları önler
