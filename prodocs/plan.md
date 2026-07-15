@@ -23,6 +23,37 @@
 - Uzun vade: bu plan.md'deki fazlar (W1, W2-W4...) — büyük roadmap
 - Günlük görev: plan.md'deki açık maddeler [ ] + GitHub Issues'tan seçilir
 
+## Mimari Kararlar (ADR)
+
+### ADR-1: Auth Mimarisi — Flutter → Supabase Auth (Gün 12, 15 Tem 2026)
+
+**Karar:** Flutter, supabase_flutter SDK ile doğrudan Supabase Auth'a bağlanır.
+Backend auth'a proxy olmaz; sadece gelen JWT'yi doğrular.
+
+**Akış:**
+Flutter --(Google girişi)--> Supabase Auth --> JWT
+Flutter --(Bearer JWT)--> FastAPI --(JWT doğrula, user_id çıkar)--> Supabase DB
+
+**Gerekçe:**
+- Token yenileme, oturum saklama, OAuth akışı (PKCE) SDK'da hazır —
+  backend proxy'de (Seçenek B) hepsi elle yazılacaktı
+- Backend stateless kalıyor; ileride Apple Sign-In aynı desenle eklenebilir
+- Anon key'in client'a girmesi RLS ile tasarım gereği güvenli
+- Motivasyon sadece "özellik" değil: GET /entries şu an auth'suz herkese
+  açık — Play Store öncesi kapanması zorunlu güvenlik açığı
+
+**Alt yaklaşımlar:**
+- Google girişi: native google_sign_in + signInWithIdToken hedefleniyor
+  (daha iyi UX); geri döndürülebilir karar, Gün 14'te kesinleşir
+- JWT doğrulama: backend'de LOKAL (PyJWT) — her istekte Supabase'e
+  sormak Singapur gecikmesi (+200-400ms) ekler
+- user_id: TEXT → UUID migration (PRD'ye dönüş); mevcut "anonymous"
+  kayıtların kaderi migration günü kararlaştırılacak
+- Demo girişi tamamen kaldırılacak (RLS'te istisna = güvenlik deliği)
+
+**Sıralama (kritik):** Konsol kurulumları → Flutter auth → Backend JWT →
+en son user_id migration + RLS. RLS erken açılırsa geliştirme kilitlenir.
+
 ## Hedef ve Kapsam
 Bu plan, PRD.md dokümanındaki v1.0 (MVP) kapsamını hayata geçirmek için hazırlanmıştır.
 Odak: Magic Flow, güvenli veri mimarisi, düşük gecikmeli AI deneyimi ve Play Store beta yayını.

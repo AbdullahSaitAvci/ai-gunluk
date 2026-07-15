@@ -202,3 +202,22 @@
   bir servise gerek kalmadan iki ayrı "uyuma" sorunu (Render + Supabase)
   tek ping ile çözülebiliyor
 - Bu fix mevcut pause'u geri açmaz — sadece gelecekteki pause'ları önler
+
+
+# Progress - 2026-07-15 (Gün 12)
+
+## Tamamlananlar
+- Auth mimarisi kararı verildi ve ADR-1 olarak plan.md'ye yazıldı:
+  Flutter → Supabase Auth (Seçenek A), backend proxy reddedildi
+- Mevcut durum analizi: supabase_flutter yok, login mock, user_id TEXT
+  "anonymous", GET /entries auth'suz herkese açık (güvenlik açığı tespiti)
+- 5 günlük iş bölümlemesi çıkarıldı (konsol → Flutter → backend → RLS)
+
+## Öğrenilen
+- Supabase'in tasarım modeli: client SDK doğrudan Auth ile konuşur,
+  anon key + RLS birlikte güvenli; backend proxy SDK'nın çözdüğü her
+  şeyi (refresh, session, PKCE) elle yazmak demek
+- RLS "yeni özellik" değil — mevcut açığın kapatılması; ama en son
+  açılmalı, yoksa auth hazır olmadan her şey kilitlenir
+- Geri dönüşü zor karar (mimari) ile döndürülebilir karar (native vs
+  browser OAuth) ayrımı: ilki bugün kilitlendi, ikincisi Gün 14'e esnek
