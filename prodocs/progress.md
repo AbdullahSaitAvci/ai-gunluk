@@ -221,3 +221,33 @@
   açılmalı, yoksa auth hazır olmadan her şey kilitlenir
 - Geri dönüşü zor karar (mimari) ile döndürülebilir karar (native vs
   browser OAuth) ayrımı: ilki bugün kilitlendi, ikincisi Gün 14'e esnek
+
+
+# Progress - 2026-07-16 (Gün 13)
+
+## Tamamlananlar
+- Google Cloud Console: mevcut "ai-gunluk" projesi (Gemini API key için
+  açılmıştı) yeniden kullanıldı, dokunulmadı
+- OAuth consent screen (Google Auth Platform): Branding, Audience (External),
+  Contact bilgileri dolduruldu
+- Android OAuth Client oluşturuldu: package com.aynaai + debug SHA-1
+- Web OAuth Client oluşturuldu: Client ID + Secret alındı (Supabase için)
+- Supabase Dashboard → Authentication → Providers → Google aktif edildi,
+  Web Client ID + Secret girildi
+- Redirect URI (https://voetvwldxfumcufxpkht.supabase.co/auth/v1/callback)
+  Google Cloud'daki Web Client'ın Authorized redirect URIs'ine eklendi
+
+## Öğrenilen
+- native google_sign_in + signInWithIdToken akışı için 2 ayrı OAuth Client
+  gerekiyor: Android (SHA-1 doğrulama için) + Web (Supabase'in token'ı
+  doğrulaması için) — Android uygulaması giriş yapıyor ama Supabase'e
+  verilen ID bir Web client'ının ID'si, kontrintuitif ama doğru
+- SHA-1 debug fingerprint hassas bilgi değil (public sertifika özeti,
+  private key'e geri çevrilemez) — release keystore'un SHA-1'i de aynı
+  şekilde güvenle paylaşılabilir, ama release keystore DOSYASININ kendisi
+  ve şifresi kesinlikle gizli tutulmalı
+- Google'ın yeni arayüzü: eski "OAuth consent screen" artık "Google Auth
+  Platform" altında Branding/Audience/Clients/Data Access sekmelerine bölünmüş
+- Release build günü (Play Store yayını) için NOT: bugünkü Android client
+  sadece DEBUG SHA-1 ile kayıtlı; release keystore'un SHA-1'i ayrıca
+  eklenmeli, yoksa release APK'da Google girişi çalışmaz
