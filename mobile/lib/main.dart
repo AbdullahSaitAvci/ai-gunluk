@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:mobile/screens/enrich_screen.dart';
 import 'package:mobile/screens/entry_screen.dart';
 import 'package:mobile/screens/history_screen.dart';
@@ -16,6 +17,10 @@ import 'package:mobile/widgets/app_theme.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDateFormatting('tr_TR', null);
+  await Supabase.initialize(
+    url: 'https://voetvwldxfumcufxpkht.supabase.co',
+    publishableKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZvZXR2d2xkeGZ1bWN1Znhwa2h0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkyNzg1NjIsImV4cCI6MjA5NDg1NDU2Mn0.OYnw6JOUNGG7eLYoGdHJHddGJhgsEWrnWDd7xMflDV0',
+  );
   runApp(const ProviderScope(child: AynaApp()));
 }
 
