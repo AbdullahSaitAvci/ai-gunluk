@@ -251,3 +251,27 @@
 - Release build günü (Play Store yayını) için NOT: bugünkü Android client
   sadece DEBUG SHA-1 ile kayıtlı; release keystore'un SHA-1'i ayrıca
   eklenmeli, yoksa release APK'da Google girişi çalışmaz
+
+
+# Progress - 2026-07-17 (Gün 14)
+
+## Tamamlananlar
+- google_sign_in v7 API'siyle gerçek Google girişi eklendi (LoginScreen)
+- main.dart: GoogleSignIn.instance.initialize(serverClientId: ...) eklendi
+- SplashScreen: Supabase.instance.client.auth.currentSession kontrolü —
+  oturum varsa doğrudan Home, yoksa Onboarding
+- Supabase Dashboard: Google provider toggle'ı GÜN 13'TE AÇILMAMIŞ kalmıştı
+  (Client ID/Secret dolu ama Enable toggle kapalıydı) — bu düzeltildi
+- Telefonda uçtan uca doğrulandı: giriş yapıldı, uygulama kapatılıp açılınca
+  Login/Onboarding görünmedi, doğrudan Home'a gitti
+- Issue açıldı: logout özelliği eksik
+
+## Öğrenilen
+- google_sign_in v7, v6'dan köklü farklı (singleton, authenticate(),
+  initialize() zorunlu) — LLM'lerin bu değişikliği bilmeme riski var,
+  Claude Code'a kurulu paketin kaynağını incelemesi söylenerek ilerlendi
+- "provider_disabled" hatası, Flutter/kod sorunu değil Supabase dashboard
+  ayarıydı — toggle'ın kendisi ayrı bir adım, Client ID/Secret girmek
+  yeterli değil
+- Debug logları (debugPrint ile eklenen) commit öncesi temizlenmedi,
+  bilerek ileri bir güne (Play Store öncesi genel temizlik) bırakıldı
