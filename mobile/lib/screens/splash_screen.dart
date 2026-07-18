@@ -1,31 +1,38 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:mobile/screens/home_screen.dart';
 import 'package:mobile/screens/onboarding_screen.dart';
 import 'package:mobile/widgets/app_theme.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
 
   static const routeName = '/';
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  ConsumerState<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends ConsumerState<SplashScreen> {
   @override
   void initState() {
     super.initState();
     _goNext();
   }
 
-  /// Splash görüntüsünden onboarding ekranına geçiş yapar.
+  /// Splash süresi sonunda oturum durumuna göre Home ya da Onboarding'e geçer.
   void _goNext() {
     Timer(const Duration(seconds: 2), () {
       if (!mounted) return;
-      Navigator.pushReplacementNamed(context, OnboardingScreen.routeName);
+      final session = Supabase.instance.client.auth.currentSession;
+      final routeName = session != null
+          ? HomeScreen.routeName
+          : OnboardingScreen.routeName;
+      Navigator.pushReplacementNamed(context, routeName);
     });
   }
 

@@ -1,13 +1,64 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:mobile/screens/home_screen.dart';
 import 'package:mobile/widgets/primary_button.dart';
 import 'package:mobile/widgets/section_card.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
 
   static const routeName = '/login';
+
+  @override
+  ConsumerState<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends ConsumerState<LoginScreen> {
+  bool _isSigningIn = false;
+
+  Future<void> _signInWithGoogle() async {
+    setState(() => _isSigningIn = true);
+    try {
+      final GoogleSignInAccount account = await GoogleSignIn.instance
+          .authenticate(scopeHint: <String>['email']);
+      final String? idToken = account.authentication.idToken;
+      if (idToken == null) {
+        throw const GoogleSignInException(
+          code: GoogleSignInExceptionCode.unknownError,
+          description: 'idToken alınamadı.',
+        );
+      }
+      await Supabase.instance.client.auth.signInWithIdToken(
+        provider: OAuthProvider.google,
+        idToken: idToken,
+      );
+      if (!mounted) return;
+      Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+    } on GoogleSignInException catch (e, stack) {
+      if (e.code == GoogleSignInExceptionCode.canceled) {
+        return;
+      }
+      debugPrint('GoogleSignInException: ${e.code} ${e.description}\n$stack');
+      _showError();
+    } catch (e, stack) {
+      debugPrint('Google sign-in error: $e\n$stack');
+      _showError();
+    } finally {
+      if (mounted) setState(() => _isSigningIn = false);
+    }
+  }
+
+  void _showError() {
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Google ile giriş yapılamadı, tekrar deneyin.'),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,12 +102,20 @@ class LoginScreen extends StatelessWidget {
               ),
               const SizedBox(height: 34),
               PrimaryButton(
+                label: _isSigningIn ? 'Giriş yapılıyor...' : 'Google ile Giriş Yap',
+                icon: LucideIcons.logIn,
+                onPressed: _isSigningIn ? null : _signInWithGoogle,
+              ),
+              const SizedBox(height: 12),
+              PrimaryButton(
                 label: 'Demo Olarak Giriş Yap',
                 icon: LucideIcons.logIn,
-                onPressed: () => Navigator.pushReplacementNamed(
-                  context,
-                  HomeScreen.routeName,
-                ),
+                onPressed: _isSigningIn
+                    ? null
+                    : () => Navigator.pushReplacementNamed(
+                        context,
+                        HomeScreen.routeName,
+                      ),
               ),
               const SizedBox(height: 12),
               const Text(
