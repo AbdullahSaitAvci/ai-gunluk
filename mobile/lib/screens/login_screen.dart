@@ -39,6 +39,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       Navigator.pushReplacementNamed(context, HomeScreen.routeName);
     } on GoogleSignInException catch (e, stack) {
       if (e.code == GoogleSignInExceptionCode.canceled) {
+        // canceled hem gercek iptali hem de yapilandirma
+        // hatasini kapsayabiliyor; ayirt edebilmek icin loglaniyor.
+        debugPrint('GoogleSignIn iptal/kapatma: ${e.code} — ${e.description}');
         return;
       }
       debugPrint('GoogleSignInException: ${e.code} ${e.description}\n$stack');

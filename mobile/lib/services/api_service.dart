@@ -3,6 +3,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 /// getEntries() gibi çağrılarda oluşan hataları taşır.
 /// message alanı kullanıcıya doğrudan gösterilebilecek Türkçe bir metindir.
@@ -17,15 +18,47 @@ class ApiException implements Exception {
 class ApiService {
   static const String _baseUrl = 'https://ayna-ai-backend.onrender.com';
 
+  /// İstek header'larını üretir. requireAuth true ise geçerli bir oturum
+  /// şart koşulur; false ise Authorization header'sız istek de kabul edilir.
+  ///
+  /// Token HER ÇAĞRIDA taze okunur, static bir alanda cache'lenmez — Supabase
+  /// SDK'sı access token'ı arka planda kendi yeniliyor; saklanan bir kopya
+  /// zamanla bayatlar ve backend'e süresi dolmuş token gönderilir.
+  static Future<Map<String, String>> _buildHeaders({
+    required bool requireAuth,
+  }) async {
+    var session = Supabase.instance.client.auth.currentSession;
+
+    if (session != null && session.isExpired) {
+      try {
+        final response = await Supabase.instance.client.auth.refreshSession();
+        session = response.session;
+      } catch (e) {
+        // Yenileme başarısız oldu; session'ı yok say, aşağıdaki null dalına düş.
+        session = null;
+      }
+    }
+
+    if (session == null) {
+      if (requireAuth) {
+        throw ApiException('Oturum bulunamadı. Lütfen tekrar giriş yapın.');
+      }
+      return {'Content-Type': 'application/json'};
+    }
+
+    return {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${session.accessToken}',
+    };
+  }
+
   /// Günün sorusunu backend'den çeker.
   /// Başarısız olursa fallback soru döner — uygulama çökmez.
   static Future<String> getDailyQuestion() async {
     try {
+      final headers = await _buildHeaders(requireAuth: false);
       final response = await http
-          .get(
-            Uri.parse('$_baseUrl/daily-question/'),
-            headers: {'Content-Type': 'application/json'},
-          )
+          .get(Uri.parse('$_baseUrl/daily-question/'), headers: headers)
           .timeout(const Duration(seconds: 5)); // 5 sn timeout
 
       if (response.statusCode == 200) {
@@ -44,10 +77,11 @@ class ApiService {
   /// Hata durumunda rawText'i döndürür — uygulama çökmez.
   static Future<String> enrichEntry(String rawText, String tone) async {
     try {
+      final headers = await _buildHeaders(requireAuth: false);
       final response = await http
           .post(
             Uri.parse('$_baseUrl/enrich/'),
-            headers: {'Content-Type': 'application/json'},
+            headers: headers,
             body: jsonEncode({'raw_text': rawText, 'tone': tone}),
           )
           .timeout(const Duration(seconds: 30));
@@ -72,10 +106,11 @@ class ApiService {
     String mood,
   ) async {
     try {
+      final headers = await _buildHeaders(requireAuth: true);
       final response = await http
           .post(
             Uri.parse('$_baseUrl/entries/'),
-            headers: {'Content-Type': 'application/json'},
+            headers: headers,
             body: jsonEncode({
               'question': question,
               'raw_text': rawText,
@@ -87,6 +122,9 @@ class ApiService {
           .timeout(const Duration(seconds: 30));
       return response.statusCode == 201 || response.statusCode == 200;
     } catch (e) {
+      // _buildHeaders'ın fırlattığı ApiException (oturum yok) da dahil
+      // olmak üzere tüm hatalarda false dönülür; saveEntry'nin sözleşmesi
+      // bool döndürmek, exception fırlatmak değil.
       return false;
     }
   }
@@ -108,18 +146,19 @@ class ApiService {
     required bool isRetry,
   }) async {
     try {
+      final headers = await _buildHeaders(requireAuth: true);
       final response = await http
-          .get(
-            Uri.parse('$_baseUrl/entries/'),
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer anonymous',
-            },
-          )
+          .get(Uri.parse('$_baseUrl/entries/'), headers: headers)
           .timeout(Duration(seconds: timeoutSeconds));
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body) as Map<String, dynamic>;
         return (data['entries'] as List).cast<Map<String, dynamic>>();
+      }
+      if (response.statusCode == 401) {
+        // Token süresi dolmuş; tekrar denemek anlamsız çünkü aynı (veya
+        // hâlâ geçersiz) token'la tekrar 401 alınır. Retry sadece soğuk
+        // başlangıç kaynaklı TimeoutException için mantıklı.
+        throw ApiException('Oturum süresi doldu. Lütfen tekrar giriş yapın.');
       }
       throw ApiException('Sunucu hatası (kod: ${response.statusCode}).');
     } on TimeoutException {
