@@ -1,7 +1,8 @@
 """Günlük girişleri CRUD endpoint'leri."""
 import datetime
-from fastapi import APIRouter, HTTPException, Header
+from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
+from auth import CurrentUser, get_current_user
 from constants import SUPABASE_URL, SUPABASE_ANON_KEY
 
 router = APIRouter(prefix="/entries", tags=["Günlük Girişleri"])
@@ -28,13 +29,13 @@ def get_supabase_client(token: str):
 
 
 @router.get("/", summary="Geçmiş günlükleri listele")
-async def get_entries():
-    """Tüm günlük girişlerini döner. Token doğrulaması yapılmaz."""
+async def get_entries(current_user: CurrentUser = Depends(get_current_user)):
+    """Giriş yapmış kullanıcının kendi günlük girişlerini döner."""
     try:
-        from supabase import create_client
-        supabase = create_client(SUPABASE_URL, SUPABASE_ANON_KEY)
+        supabase = get_supabase_client(current_user.token)
         response = supabase.table("entries") \
             .select("*") \
+            .eq("user_id", current_user.id) \
             .order("created_at", desc=True) \
             .execute()
         return {"entries": response.data, "total": len(response.data)}
@@ -46,17 +47,21 @@ async def get_entries():
 
 
 @router.post("/", status_code=201, summary="Yeni günlük girişi kaydet")
-async def create_entry(entry: EntryCreate):
+async def create_entry(
+    entry: EntryCreate,
+    current_user: CurrentUser = Depends(get_current_user),
+):
     """
     Zenginleştirilmiş günlük girişini Supabase'e kaydeder.
-    Token doğrulaması yapılmaz; user_id sabit olarak 'anonymous' kullanılır.
+    user_id, JWT'den doğrulanan giriş yapmış kullanıcının kimliğidir.
     """
     try:
-        from supabase import create_client
-        supabase = create_client(SUPABASE_URL, SUPABASE_ANON_KEY)
+        supabase = get_supabase_client(current_user.token)
 
+        # entries.user_id sütunu hâlâ TEXT tipinde; UUID string'i sorunsuz
+        # yazılır, ayrı bir migration gerekmez.
         payload = {
-            "user_id": "anonymous",
+            "user_id": current_user.id,
             "date": str(datetime.date.today()),
             "question": entry.question,
             "raw_text": entry.raw_text,
@@ -84,16 +89,21 @@ async def create_entry(entry: EntryCreate):
 
 
 @router.get("/{entry_id}", summary="Tek giriş detayı")
-async def get_entry(entry_id: str, authorization: str = Header(...)):
+async def get_entry(
+    entry_id: str,
+    current_user: CurrentUser = Depends(get_current_user),
+):
     """Belirli bir günlük girişinin detayını döner."""
     try:
-        token = authorization.replace("Bearer ", "")
-        supabase = get_supabase_client(token)
+        supabase = get_supabase_client(current_user.token)
         response = supabase.table("entries") \
             .select("*") \
             .eq("id", entry_id) \
+            .eq("user_id", current_user.id) \
             .single() \
             .execute()
         return response.data
-    except Exception as e:
-        raise HTTPException(status_code=404, detail=str(e))
+    except Exception:
+        # Ham hata metni dışarı verilmez; kaydın var olup olmadığı ya da
+        # başkasına ait olduğu bilgisi sızdırılmaz.
+        raise HTTPException(status_code=404, detail="Kayıt bulunamadı.")
