@@ -2,13 +2,14 @@
 from dotenv import load_dotenv
 load_dotenv()  # En üstte olmalı, import'lardan önce
 
-from fastapi import FastAPI
+from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 from routers import entries, questions, enrich
 from limiter import limiter
 from constants import SUPABASE_URL, SUPABASE_ANON_KEY
+from auth import CurrentUser, get_current_user
 
 app = FastAPI(
     title="Ayna AI Backend",
@@ -54,3 +55,9 @@ async def health() -> dict[str, str]:
         supabase_status = "unreachable"
 
     return {"status": "ok", "version": "1.0.0", "supabase": supabase_status}
+
+
+@app.get("/me", tags=["Sistem"])
+async def get_me(current_user: CurrentUser = Depends(get_current_user)) -> dict[str, str | None]:
+    """Doğrulanmış kullanıcının kimlik bilgilerini döner. Token'ı response'a koymaz."""
+    return {"user_id": current_user.id, "email": current_user.email}
