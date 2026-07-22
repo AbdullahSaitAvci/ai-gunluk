@@ -275,3 +275,46 @@
   yeterli değil
 - Debug logları (debugPrint ile eklenen) commit öncesi temizlenmedi,
   bilerek ileri bir güne (Play Store öncesi genel temizlik) bırakıldı
+
+
+
+
+# Progress - 2026-07-22 (Gün 15)
+
+## Tamamlananlar
+- Supabase JWT Keys paneli: CURRENT KEY = ECC (P-256), PREVIOUS = Legacy
+  HS256 -> asimetrik doğrulama (ES256 + JWKS) kararı netleşti
+- backend/auth.py: lokal JWT doğrulama dependency'si (PyJWKClient modül
+  seviyesinde cache'li, sadece ES256, aud/iss/exp kontrolü, token hiçbir
+  hata mesajında dönmüyor)
+- GET /me endpoint'i eklendi (auth doğrulama noktası olarak kalıcı)
+- api_service.dart: _buildHeaders({requireAuth}) — token her çağrıda taze
+  okunuyor, isExpired ise refreshSession() deneniyor; 'Bearer anonymous'
+  kaldırıldı; 401 için ayrı dal (retry yok)
+- entries.py: üç endpoint de Depends(get_current_user) ile korundu,
+  .eq("user_id", current_user.id) filtresi eklendi, POST artık user_id'yi
+  token'dan alıyor
+- GET /entries/ artık kimliksiz istekte 401 dönüyor — Gün 12'de tespit
+  edilen "tüm günlükler herkese açık" açığı kapandı
+- login_screen.dart: GoogleSignIn canceled dalına debugPrint eklendi
+  (sessiz hata yolu kapatıldı)
+- Google Cloud: debug keystore değiştiği için Android OAuth client'ın
+  SHA-1'i güncellendi
+
+## Öğrenilen
+- Bir Google Cloud Android OAuth client TEK SHA-1 taşır (Firebase'den farklı).
+  Release keystore için AYNI paket adıyla İKİNCİ bir client açılacak.
+- INSTALL_FAILED_UPDATE_INCOMPATIBLE = keystore değişmiş demek; uninstall
+  uygulama verisini de siler, Supabase oturumu gider
+- Android logcat satırı ~1023 karakterde sessizce kesiyor -> uzun token
+  log'dan güvenilir kopyalanamaz. Doğrulamayı veriyi taşımadan yap:
+  uygulama /me'yi kendisi çağırdı, sadece kısa sonucu yazdırdı
+- Git Bash'in /tmp yolu Windows Python'a geçmiyor (cygpath ile görülebilir);
+  ortak yol için ev dizini kullanılmalı
+- Ayrıştırılmış hata mesajları teşhis kazandırıyor: "Oturum süresi doldu"
+  yerine "Geçersiz oturum" gelmesi expiry ihtimalini tek başına eledi
+- Sıra düzeltmesi: endpoint'ler ÖNCE, migration SONRA. Tersi olsaydı sütun
+  uuid olurken backend hâlâ "anonymous" yazacak, üretimde kırık pencere açılacaktı
+- Kayıt sayısı 29 değil 35; içlerinde çöp test kayıtları ("adaa", "ahsjsjak")
+  ve artık geçersiz ton değerleri ("Stoacı", "Sade") var
+
